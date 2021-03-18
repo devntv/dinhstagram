@@ -5,10 +5,10 @@
 export function seedDatabase(firebase) {
     const users = [
       {
-        userId: 'NvPY9M9MzFTARQ6M816YAzDJxZ72',
-        username: 'karl',
-        fullName: 'Karl Hadwen',
-        emailAddress: 'karlhadwen@gmail.com',
+        userId: 'hkGuBRXkcFdJPbRr6w4xTv9EegG3',
+        username: 'devntv',
+        fullName: 'NT Vinh Nguyen',
+        emailAddress: 'binkool281132442n@gmail.com',
         following: ['2'],
         followers: ['2', '3', '4'],
         dateCreated: Date.now()
@@ -16,10 +16,10 @@ export function seedDatabase(firebase) {
       {
         userId: '2',
         username: 'TestBot',
-        fullName: 'Raffaello Sanzio da Urbino',
-        emailAddress: 'raphael@sanzio.com',
+        fullName: 'TestBot',
+        emailAddress: 'testbot@gmail.com',
         following: [],
-        followers: ['NvPY9M9MzFTARQ6M816YAzDJxZ72'],
+        followers: ['hkGuBRXkcFdJPbRr6w4xTv9EegG3'],
         dateCreated: Date.now()
       },
       {
@@ -28,7 +28,7 @@ export function seedDatabase(firebase) {
         fullName: 'Long-kick Leesin',
         emailAddress: 'kick@leesin.com',
         following: [],
-        followers: ['NvPY9M9MzFTARQ6M816YAzDJxZ72'],
+        followers: ['hkGuBRXkcFdJPbRr6w4xTv9EegG3'],
         dateCreated: Date.now()
       },
       {
@@ -37,7 +37,7 @@ export function seedDatabase(firebase) {
         fullName: 'Hasagi Yasuo',
         emailAddress: 'hasagi@yasuo.com',
         following: [],
-        followers: ['NvPY9M9MzFTARQ6M816YAzDJxZ72'],
+        followers: ['hkGuBRXkcFdJPbRr6w4xTv9EegG3'],
         dateCreated: Date.now()
       }
     ];
@@ -55,7 +55,7 @@ export function seedDatabase(firebase) {
         .add({
           photoId: i,
           userId: '2',
-          imageSrc: `/images/users/raphael/${i}.jpg`,
+          imageSrc: `/images/users/testbot/${i}.jpg`,
           caption: 'welcome to dinhstagram socials',
           likes: [],
           comments: [

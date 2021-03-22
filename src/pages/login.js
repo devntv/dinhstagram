@@ -15,7 +15,13 @@ import React, { useState, useContext, useEffect, Fragment } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import {AiFillFacebook, AiFillGithub,} from 'react-icons/ai'
 import {RiVuejsLine,RiEarthLine} from 'react-icons/ri'
+import s1 from '../images/s1.png'
+import s2 from '../images/s2.png'
+import s3 from '../images/s3.png'
+import s4 from '../images/s4.png'
+import s5 from '../images/s5.png'
 import FirebaseContext from '../context/firebase'
+import * as ROUTES from '../contants/routes'
 
 export default function login() {
     const history = useHistory();
@@ -26,30 +32,66 @@ export default function login() {
     const [error, setError] = useState('');
     const isInvalid = password.length < 6 || emailAddress === '';
     const [displayPass, setDisplayPass] = useState(true);
+    const [randomImage, setRandomImage] = useState(s1)
 
+    
+  
+ 
     const handleDisplay = () => {
         setDisplayPass(!displayPass)
     }
 
-    const handleLogin = () => {
-
+    const handleLogin = async (event) => {
+        event.preventDefault();
+        try {
+            await firebase.auth().signInWithEmailAndPassword(emailAddress, password);
+            history.push(ROUTES.DASHBOARD);
+        } catch (e) {
+            setEmailAddress('');
+            setPassword('');
+            console.log(e);
+            // if(e.code = "auth/invalid-email"){
+            //     setError('email bạn vừa nhập không tồn tại hoặc sai định dạng.')
+            // }
+            e.code = "auth/invalid-email"
+             ? setError('email bạn vừa nhập không đúng định dạng.') 
+             : ''
+        }
     }
     useEffect(() => {
         document.title = 'Login Dinhstagram'
     }, [])
+
+    // slide mobile screen
+    useEffect(()=>{
+      const slideMobileScreen = setInterval(()=>{        
+            const imgArray =[s1, s2, s3, s4, s5];
+            const randomIndex = Math.floor(Math.random() * imgArray.length);
+            const randomImg = imgArray[randomIndex];
+            // console.log(randomIndex);
+            setRandomImage(randomImg)
+       },3500)
+
+       return ()=>{
+            // clean Up when this component has been unmount
+            clearInterval(slideMobileScreen)         
+       }
+    },[])
+    
+    // setTimeout(setRandomImage(randomImg), 500)
 
     return (
        <>
         <div className="container flex mx-auto max-w-screen-md items-center h-screen">
 
             <div className="flex w-3/5 ">
-                <img className="max-w-full" src="/images/logo3.jpg" alt="login phone mobile" />
+                <img className="max-w-full relative animate-mobileScreen" src={randomImage} alt="login phone mobile" />  
             </div>
 
             <div className="flex flex-col w-2/5 ">
                 <div className="flex flex-col items-center  bg-white p-6 mb-4 border border-gray-primary">
                     <h1 className="flex  justify-center w-full">
-                        <img className="mt-2 w-3/5 mb-4" src='/images/logo2.png' alt="DinhstagramLogo" />
+                        <img className="mt-2 w-3/5 mb-4 h-12" src='/images/logo2.png' alt="DinhstagramLogo" />
                     </h1>
                     {error && <p className="mb-4 text-sm text-red-primary">{error}</p>}
 
@@ -73,7 +115,7 @@ export default function login() {
                         />
                         <div className="flex justify-end">
                             <button type="button"
-                                className="relative font-semibold bottom-11 right-2 text-sm cursor-pointer"
+                                className="relative font-semibold bottom-10 right-2 text-sm cursor-pointer"
                                 onClick={handleDisplay}
                             > {password === '' ? '' : 'Hiển thị' && displayPass ? 'Hiển thị' : 'Ẩn'}
 
@@ -129,24 +171,28 @@ export default function login() {
         <div className="flex flex-col items-center justify-center mt-10 ">
             <div className="flex items-center">
                 <div className="flex flex-col mr-6 items-center">
-                    <span className=" text-gray-graybold text-2xl"><RiVuejsLine /></span>
+                    <span className=" text-gray-graybold text-3xl"><RiVuejsLine /></span>
                     <div className="text-sm text-gray-graybold font-semibold">Dinh Dz</div>
                 </div>
                 <div className="text-gray-graybold text-sm ml-4 "> @2021 Dinhstagram all rights reserved.</div>
             </div>
 
             <div className="flex w-1/4 flex-col">
-                <p className="text-gray-graybold font-semibold text-base text-center">Contact infor</p>
+                <p className="text-gray-graybold font-semibold text-base text-center"> Contact infor</p>
 
                 <div className="flex items-center justify-around mt-2 text-2xl text-gray-graybold mb-2 ">
-                    <a href="github.com/devntv" className="ml-4">
+                    <a href="github.com/devntv" className="ml-4 flex items-end">
                         <AiFillGithub />
+                        <span className="text-xs ml-1">Github</span>
                     </a>
-                    <a href="https://www.facebook.com/Dinh.nt1097">
+                    <a href="https://www.facebook.com/Dinh.nt1097" className="ml-4 flex items-end" >
                         <AiFillFacebook />
+                        <span className="text-xs ml-1">Facebook</span>
+
                     </a>
-                    <a href="https://www.vinhdz.fun/">
+                    <a href="https://www.vinhdz.fun/" className="ml-4 flex items-end">
                         <RiEarthLine />
+                        <span className="text-xs ml-1">Website</span>
                     </a>
                 </div>
             </div>     

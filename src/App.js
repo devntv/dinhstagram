@@ -1,5 +1,5 @@
-/* eslint-disable react/jsx-filename-extension */
 /* eslint-disable prettier/prettier */
+/* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable no-unused-vars */
 import React, { lazy, Suspense } from 'react'

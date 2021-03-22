@@ -4,6 +4,9 @@ module.exports = {
 		removeDeprecatedGapUtilities: true,
 	},
 	theme: {
+		fill : (theme) => ({
+			red: theme('colors.red.primary')
+		}),
 		colors: {
 			white: '#ffffff',
 			blue: {
@@ -21,6 +24,24 @@ module.exports = {
 				primary: '#dbdbdb',
 				graybold: '#8c8c8c',
 			},
+			red: {
+				primary: '#ed4956'
+			},
 		},
+		extend:{
+			keyframes: {
+				mobileScreen: {
+					'0%, 100%':{
+						opacity: '1',
+					},
+					'50%':{
+						opacity: '.5',
+					},
+				}
+			},
+			animation:{
+				mobileScreen: 'mobileScreen 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+			}
+		}
 	},
 }

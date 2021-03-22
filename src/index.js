@@ -1,6 +1,7 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable no-unused-vars */
-/* eslint-disable prettier/prettier */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';

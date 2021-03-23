@@ -10,11 +10,11 @@
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/self-closing-comp */
-
 import React, { useState, useContext, useEffect, Fragment } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import {AiFillFacebook, AiFillGithub,} from 'react-icons/ai'
 import {RiVuejsLine,RiEarthLine} from 'react-icons/ri'
+import ClipLoader from "react-spinners/ClipLoader";
 import s1 from '../images/s1.png'
 import s2 from '../images/s2.png'
 import s3 from '../images/s3.png'
@@ -22,6 +22,8 @@ import s4 from '../images/s4.png'
 import s5 from '../images/s5.png'
 import FirebaseContext from '../context/firebase'
 import * as ROUTES from '../contants/routes'
+
+
 
 export default function login() {
     const history = useHistory();
@@ -33,12 +35,18 @@ export default function login() {
     const isInvalid = password.length < 6 || emailAddress === '';
     const [displayPass, setDisplayPass] = useState(true);
     const [randomImage, setRandomImage] = useState(s1)
+    const [loadingBtn, setLoadingBtn] = useState(false);
 
-    
-  
- 
     const handleDisplay = () => {
         setDisplayPass(!displayPass)
+    }
+
+    // firebase return data too fast, so it has to do this way xD
+    const handleLoadingBtn = () =>{
+        setLoadingBtn(true);
+        setTimeout(()=>{
+            setLoadingBtn(false)
+        },600)
     }
 
     const handleLogin = async (event) => {
@@ -47,22 +55,26 @@ export default function login() {
             await firebase.auth().signInWithEmailAndPassword(emailAddress, password);
             history.push(ROUTES.DASHBOARD);
         } catch (e) {
-            setEmailAddress('');
-            setPassword('');
-            console.log(e);
-            // if(e.code = "auth/invalid-email"){
-            //     setError('email bạn vừa nhập không tồn tại hoặc sai định dạng.')
-            // }
-            e.code = "auth/invalid-email"
-             ? setError('email bạn vừa nhập không đúng định dạng.') 
-             : ''
+            // console.log(e.code);
+            // e.code === 'auth/invalid-email' && auth/user-not-found
+            //  ? setError('Email bạn vừa nhập không đúng định dạng. Vui lòng kiểm tra và thử lại.') 
+            //  : setError('Tên người dùng bạn đã nhập không thuộc về tài khoản nào. Vui lòng kiểm tra và thử lại.')
+            if(e.code === 'auth/invalid-email'){
+                setError('Email bạn vừa nhập không đúng định dạng. Vui lòng kiểm tra và thử lại.') 
+            } else if (e.code === 'auth/user-not-found'){
+                setError('Tên người dùng bạn đã nhập không thuộc về tài khoản nào. Vui lòng kiểm tra và thử lại.')
+            } else if(e.code === 'auth/wrong-password') {
+                setError('Mật khẩu bạn vừa nhập không chính xác. Vui lòng kiểm tra lại.')
+            }
+             e && setEmailAddress('');
+             e && setPassword('');
         }
     }
     useEffect(() => {
-        document.title = 'Login Dinhstagram'
+        document.title = '「 Login - Dinhstagram 」'
     }, [])
 
-    // slide mobile screen
+    // slide mobile screenShot
     useEffect(()=>{
       const slideMobileScreen = setInterval(()=>{        
             const imgArray =[s1, s2, s3, s4, s5];
@@ -78,7 +90,6 @@ export default function login() {
        }
     },[])
     
-    // setTimeout(setRandomImage(randomImg), 500)
 
     return (
        <>
@@ -93,8 +104,7 @@ export default function login() {
                     <h1 className="flex  justify-center w-full">
                         <img className="mt-2 w-3/5 mb-4 h-12" src='/images/logo2.png' alt="DinhstagramLogo" />
                     </h1>
-                    {error && <p className="mb-4 text-sm text-red-primary">{error}</p>}
-
+                   
                     <form onSubmit={handleLogin} method="POST">
                         <input
                             aria-label="Nhập vào địa chỉ Email"
@@ -103,6 +113,7 @@ export default function login() {
                             className="text-sm text-gray-base w-full mr-3 py-4 px-4 h-2 border border-gray-primary
                                 rounded mb-3 bg-gray-background"
                             onChange={({ target }) => setEmailAddress(target.value)}
+                            value={emailAddress}
                         />
 
                         <input
@@ -112,6 +123,7 @@ export default function login() {
                             className="text-sm text-gray-base w-full mr-3 py-4 px-4 h-2 border border-gray-primary
                                 rounded mb-3 bg-gray-background"
                             onChange={({ target }) => setPassword(target.value)}
+                            value={password}
                         />
                         <div className="flex justify-end">
                             <button type="button"
@@ -122,9 +134,11 @@ export default function login() {
                             </button>
                         </div>
 
-                        <button type="submit" disabled={isInvalid}
+                        <button onClick={handleLoadingBtn} type="submit" disabled={isInvalid}
                             className={`bg-blue-medium text-white w-full rounded h-8 font-semibold ${isInvalid && `opacity-50 cursor-default`}`}
-                        >Đăng nhập</button>
+                        >{loadingBtn ? <ClipLoader className="flex items-center justify-center" color="#ffffff"
+                        loading={loadingBtn} size={20}/> : 'Đăng nhập' }</button>
+                        
                     </form>
                     
                     <div className="flex text-gray-graybold font-semibold mx-10 mt-2.5 mb-5 relative flex-row justify-around items-center">
@@ -140,6 +154,8 @@ export default function login() {
                         </button>
                     </div>
 
+                    {error && <p className="mt-3.5 text-center text-sm text-red-primary">{error}</p>}
+                    
                     <div className="mt-3.5">
                         <a href="https://www.facebook.com/Dinh.nt1097" className="text-xs text-blue-bold">Quên mật khẩu? vui lòng liên hệ</a>
                     </div>
@@ -181,7 +197,7 @@ export default function login() {
                 <p className="text-gray-graybold font-semibold text-base text-center"> Contact infor</p>
 
                 <div className="flex items-center justify-around mt-2 text-2xl text-gray-graybold mb-2 ">
-                    <a href="github.com/devntv" className="ml-4 flex items-end">
+                    <a href="https://www.github.com/devntv" className="ml-4 flex items-end">
                         <AiFillGithub />
                         <span className="text-xs ml-1">Github</span>
                     </a>

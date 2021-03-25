@@ -1,15 +1,9 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable react/button-has-type */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-unused-expressions */
-/* eslint-disable jsx-a11y/control-has-associated-label */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/heading-has-content */
 /* eslint-disable react/jsx-filename-extension */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/self-closing-comp */
+
+
 import React, { useState, useContext, useEffect, Fragment } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import {AiFillFacebook, AiFillGithub,} from 'react-icons/ai'
@@ -41,37 +35,28 @@ export default function login() {
         setDisplayPass(!displayPass)
     }
 
-    // firebase return data too fast, so it has to do this way xD
-    const handleLoadingBtn = () =>{
-        setLoadingBtn(true);
-        setTimeout(()=>{
-            setLoadingBtn(false)
-        },600)
-    }
-
     const handleLogin = async (event) => {
         event.preventDefault();
         try {
+            setLoadingBtn(true);
             await firebase.auth().signInWithEmailAndPassword(emailAddress, password);
             history.push(ROUTES.DASHBOARD);
+            setLoadingBtn(false);
         } catch (e) {
-            // console.log(e.code);
-            // e.code === 'auth/invalid-email' && auth/user-not-found
-            //  ? setError('Email bạn vừa nhập không đúng định dạng. Vui lòng kiểm tra và thử lại.') 
-            //  : setError('Tên người dùng bạn đã nhập không thuộc về tài khoản nào. Vui lòng kiểm tra và thử lại.')
             if(e.code === 'auth/invalid-email'){
                 setError('Email bạn vừa nhập không đúng định dạng. Vui lòng kiểm tra và thử lại.') 
             } else if (e.code === 'auth/user-not-found'){
-                setError('Tên người dùng bạn đã nhập không thuộc về tài khoản nào. Vui lòng kiểm tra và thử lại.')
+                setError('Tên người dùng, Email bạn đã nhập không thuộc về tài khoản nào. Vui lòng kiểm tra và thử lại.')
             } else if(e.code === 'auth/wrong-password') {
                 setError('Mật khẩu bạn vừa nhập không chính xác. Vui lòng kiểm tra lại.')
             }
+            setLoadingBtn(false);
              e && setEmailAddress('');
              e && setPassword('');
         }
     }
     useEffect(() => {
-        document.title = '「 Login - Dinhstagram 」'
+        document.title = ' Đăng nhập • Dinhstagram'
     }, [])
 
     // slide mobile screenShot
@@ -100,9 +85,9 @@ export default function login() {
             </div>
 
             <div className="flex flex-col w-2/5 ">
-                <div className="flex flex-col items-center  bg-white p-6 mb-4 border border-gray-primary">
-                    <h1 className="flex  justify-center w-full">
-                        <img className="mt-2 w-3/5 mb-4 h-12" src='/images/logo2.png' alt="DinhstagramLogo" />
+                <div className="flex flex-col items-center  bg-white p-6 mb-2 border border-gray-primary">
+                    <h1 className="flex  justify-center ">
+                        <img className="mt-2 mb-4 h-16" src='/images/logo2.png' alt="DinhstagramLogo" />
                     </h1>
                    
                     <form onSubmit={handleLogin} method="POST">
@@ -134,21 +119,21 @@ export default function login() {
                             </button>
                         </div>
 
-                        <button onClick={handleLoadingBtn} type="submit" disabled={isInvalid}
+                        <button  type="submit" disabled={isInvalid}
                             className={`bg-blue-medium text-white w-full rounded h-8 font-semibold ${isInvalid && `opacity-50 cursor-default`}`}
                         >{loadingBtn ? <ClipLoader className="flex items-center justify-center" color="#ffffff"
                         loading={loadingBtn} size={20}/> : 'Đăng nhập' }</button>
                         
                     </form>
                     
-                    <div className="flex text-gray-graybold font-semibold mx-10 mt-2.5 mb-5 relative flex-row justify-around items-center">
-                        <div className="bg-gray-primary h-px relative top-0.5 flex-grow w-24 -left-4"></div>
+                    <div className="flex text-gray-graybold font-medium text-xs uppercase mx-10 mt-2.5 mb-5 relative flex-row justify-around items-center">
+                        <div className="bg-gray-primary h-px relative top-0.5 flex-grow w-24 -left-4" />
                         <div className="flex-grow-0">Hoặc</div>
-                        <div className="bg-gray-primary h-px relative top-0.5 flex-grow w-24 -right-4"> </div>
+                        <div className="bg-gray-primary h-px relative top-0.5 flex-grow w-24 -right-4"/> 
                     </div>
 
                     <div>
-                        <button className="font-semibold text-blue-bold text-sm flex items-center ">
+                        <button type="button" className="font-semibold text-blue-bold text-sm flex items-center ">
                             <span className="text-xl mr-1"><AiFillFacebook /></span>
                             <span>Đăng nhập bằng Facebook</span>
                         </button>
@@ -157,13 +142,13 @@ export default function login() {
                     {error && <p className="mt-3.5 text-center text-sm text-red-primary">{error}</p>}
                     
                     <div className="mt-3.5">
-                        <a href="https://www.facebook.com/Dinh.nt1097" className="text-xs text-blue-bold">Quên mật khẩu? vui lòng liên hệ</a>
+                        <a href="https://www.facebook.com/Dinh.nt1097" className="text-xs text-blue-bold">Quên mật khẩu? liên hệ Dinh đẹp trai tại đây !</a>
                     </div>
                 </div>
                 
                 <div className="flex justify-center items-center flex-col w-full bg-white p-4 border border-gray-primary">
                     <p className="text-sm">bạn chưa có tài khoản? 
-                        <Link to="/sign-up" className="font-semibold text-blue-medium ml-1">Đăng ký</Link>
+                        <Link to={ROUTES.SIGN_UP} className="font-semibold text-blue-medium ml-1">Đăng ký</Link>
                     </p>
                 </div>
 
@@ -194,7 +179,7 @@ export default function login() {
             </div>
 
             <div className="flex w-1/4 flex-col">
-                <p className="text-gray-graybold font-semibold text-base text-center"> Contact infor</p>
+                <p className="text-gray-graybold font-semibold text-xs text-center"> Contact infor</p>
 
                 <div className="flex items-center justify-around mt-2 text-2xl text-gray-graybold mb-2 ">
                     <a href="https://www.github.com/devntv" className="ml-4 flex items-end">

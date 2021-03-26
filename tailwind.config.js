@@ -18,6 +18,7 @@ module.exports = {
 				light: '#005c98',
 				faded: '#00000059',
 				dowload: '#262626',
+				bold: '#262626'
 			},
 			gray: {
 				base: '#616161',
@@ -40,14 +41,29 @@ module.exports = {
 						opacity: '.5',
 					},
 				},
+				scaletext: {
+					'0%': {
+						transform: 'scale(.5)',
+						opacity: '0'
+					},
+					'75%': {
+						transform: 'scale(1.0)',
+						opacity: '.5'
+					},
+					'100%': {
+						transform: 'scale(1.0)'
+					}
+				}
 			},
 			animation: {
 				mobileScreen: 'mobileScreen 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+				scaletext: 'scaletext 0.5s cubic-bezier(1, 1, 0.2, 1)'
 			},
 			maxWidth:{
 				maxwidth350: '350px',
 				maxwidth258: '258px',
 			},
+			
 		},
 	},
 }

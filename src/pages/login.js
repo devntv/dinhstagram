@@ -27,6 +27,8 @@ export default function login() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const isInvalid = password.length < 6 || emailAddress === '';
+    const isInputEmail =  emailAddress !== '';
+    const isInputPassword = password !=='';
     const [displayPass, setDisplayPass] = useState(true);
     const [randomImage, setRandomImage] = useState(s1)
     const [loadingBtn, setLoadingBtn] = useState(false);
@@ -45,14 +47,19 @@ export default function login() {
         } catch (e) {
             if(e.code === 'auth/invalid-email'){
                 setError('Email bạn vừa nhập không đúng định dạng. Vui lòng kiểm tra và thử lại.') 
+                setEmailAddress('');
+                setPassword('');
             } else if (e.code === 'auth/user-not-found'){
                 setError('Tên người dùng, Email bạn đã nhập không thuộc về tài khoản nào. Vui lòng kiểm tra và thử lại.')
+                setEmailAddress('');
+                setPassword('');
             } else if(e.code === 'auth/wrong-password') {
                 setError('Mật khẩu bạn vừa nhập không chính xác. Vui lòng kiểm tra lại.')
+                setPassword('');
             }
             setLoadingBtn(false);
-             e && setEmailAddress('');
-             e && setPassword('');
+            //  e && setEmailAddress('');
+            //  e && setPassword('');
         }
     }
     useEffect(() => {
@@ -87,30 +94,35 @@ export default function login() {
             <div className="flex flex-col w-2/5 ">
                 <div className="flex flex-col items-center  bg-white p-6 mb-2 border border-gray-primary">
                     <h1 className="flex  justify-center ">
-                        <img className="mt-2 mb-4 h-16" src='/images/logo2.png' alt="DinhstagramLogo" />
+                        <img className=" mt-4 h-16 w-48 mx-auto mb-4" src='/images/logo2.png' alt="DinhstagramLogo" />
                     </h1>
                    
-                    <form onSubmit={handleLogin} method="POST">
+                    <form onSubmit={handleLogin} method="POST" className="relative">
+                        {isInputEmail && <p className="text-xs mt-0 text-gray-graybold h-0 absolute top-0 left-2 animate-scaletext">Email</p>}
                         <input
                             aria-label="Nhập vào địa chỉ Email"
                             type="text"
+                            onFocus={(e) => {e.target.placeholder = "nhập vào địa chỉ Email"}} 
+                            onBlur={(e)=> { e.target.placeholder ="Địa chỉ Email"}}
                             placeholder="Địa chỉ Email"
-                            className="text-sm text-gray-base w-full mr-3 py-4 px-4 h-2 border border-gray-primary
-                                rounded mb-3 bg-gray-background"
+                            className={`text-sm text-gray-base w-full mr-3 py-4 px-4 h-10 border border-gray-primary
+                                rounded mb-3 bg-gray-background ${isInputEmail && `text-xs pt-3 pr-0 pb-1 pl-2 text-black-faded font-medium`}`}
                             onChange={({ target }) => setEmailAddress(target.value)}
                             value={emailAddress}
                         />
-
+                       {isInputPassword &&<span className="text-xs mt-0 text-gray-graybold absolute top-14 left-2 animate-scaletext">mật khẩu</span>}
                         <input
                             aria-label="Nhập vào password"
                             type={!displayPass ? 'text' : 'password'}
+                            onFocus={(e) => {e.target.placeholder = "nhập vào mật khẩu"}} 
+                            onBlur={(e)=> { e.target.placeholder ="mật khẩu"}}
                             placeholder="Mật khẩu"
-                            className="text-sm text-gray-base w-full mr-3 py-4 px-4 h-2 border border-gray-primary
-                                rounded mb-3 bg-gray-background"
+                            className={`text-sm text-gray-base w-full mr-3 py-4 px-4 h-10 border border-gray-primary
+                                rounded mb-3 bg-gray-background ${isInputPassword && `text-xs mt-0 pt-4 pr-0 pb-1 pl-2 text-black-faded font-medium`}`}
                             onChange={({ target }) => setPassword(target.value)}
                             value={password}
                         />
-                        <div className="flex justify-end">
+                        <div className="flex justify-end h-0">
                             <button type="button"
                                 className="relative font-semibold bottom-10 right-2 text-sm cursor-pointer"
                                 onClick={handleDisplay}

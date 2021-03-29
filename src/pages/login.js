@@ -87,38 +87,38 @@ export default function login() {
        <>
         <div className="container flex mx-auto max-w-screen-md items-center h-screen">
 
-            <div className="flex w-3/5 ">
-                <img className="max-w-full relative animate-mobileScreen" src={randomImage} alt="login phone mobile" />  
+            <div className="flex w-3/4 relative -ml-10 -mr-5 bg-cover h-auto">
+                <img className="max-w-full  animate-mobileScreen" src={randomImage} alt="login phone mobile" />  
             </div>
 
-            <div className="flex flex-col w-2/5 ">
+            <div className="flex flex-col w-7/12">
                 <div className="flex flex-col items-center  bg-white p-6 mb-2 border border-gray-primary">
                     <h1 className="flex  justify-center ">
                         <img className=" mt-4 h-16 w-48 mx-auto mb-4" src='/images/logo2.png' alt="DinhstagramLogo" />
                     </h1>
                    
                     <form onSubmit={handleLogin} method="POST" className="relative">
-                        {isInputEmail && <p className="text-xs mt-0 text-gray-graybold h-0 absolute top-0 left-2 animate-scaletext">Email</p>}
+                        {isInputEmail && <p className="text-xs mt-0 text-gray-graybold h-0 absolute top-1 left-2 animate-scaletext">Email :</p>}
                         <input
                             aria-label="Nhập vào địa chỉ Email"
                             type="text"
                             onFocus={(e) => {e.target.placeholder = "nhập vào địa chỉ Email"}} 
                             onBlur={(e)=> { e.target.placeholder ="Địa chỉ Email"}}
                             placeholder="Địa chỉ Email"
-                            className={`text-sm text-gray-base w-full mr-3 py-4 px-4 h-10 border border-gray-primary
-                                rounded mb-3 bg-gray-background ${isInputEmail && `text-xs pt-3 pr-0 pb-1 pl-2 text-black-faded font-medium`}`}
+                            className={`text-xs text-gray-base w-full mr-3 py-4 px-4 h-10 border border-gray-primary
+                                rounded mb-2 bg-gray-background ${isInputEmail && `text-xs pt-3 pr-0 pb-1 pl-2 text-black-faded font-medium`}`}
                             onChange={({ target }) => setEmailAddress(target.value)}
                             value={emailAddress}
                         />
-                       {isInputPassword &&<span className="text-xs mt-0 text-gray-graybold absolute top-14 left-2 animate-scaletext">mật khẩu</span>}
+                       {isInputPassword &&<span className="text-xs mt-0.5 text-gray-graybold absolute top-12 left-2 animate-scaletext">Mật khẩu :</span>}
                         <input
                             aria-label="Nhập vào password"
                             type={!displayPass ? 'text' : 'password'}
                             onFocus={(e) => {e.target.placeholder = "nhập vào mật khẩu"}} 
                             onBlur={(e)=> { e.target.placeholder ="mật khẩu"}}
                             placeholder="Mật khẩu"
-                            className={`text-sm text-gray-base w-full mr-3 py-4 px-4 h-10 border border-gray-primary
-                                rounded mb-3 bg-gray-background ${isInputPassword && `text-xs mt-0 pt-4 pr-0 pb-1 pl-2 text-black-faded font-medium`}`}
+                            className={`text-xs text-gray-base w-full mr-3 py-4 px-4 h-10 border border-gray-primary
+                                rounded mb-3 bg-gray-background ${isInputPassword && `text-xs pt-3 pr-0 pb-1 pl-2 text-black-faded font-medium`}`}
                             onChange={({ target }) => setPassword(target.value)}
                             value={password}
                         />
@@ -132,16 +132,16 @@ export default function login() {
                         </div>
 
                         <button  type="submit" disabled={isInvalid}
-                            className={`bg-blue-medium text-white w-full rounded h-8 font-semibold ${isInvalid && `opacity-50 cursor-default`}`}
+                            className={`bg-blue-medium text-white w-full rounded h-9 font-semibold ${isInvalid && `opacity-50 cursor-default`}`}
                         >{loadingBtn ? <ClipLoader className="flex items-center justify-center" color="#ffffff"
                         loading={loadingBtn} size={20}/> : 'Đăng nhập' }</button>
                         
                     </form>
                     
-                    <div className="flex text-gray-graybold font-medium text-xs uppercase mx-10 mt-2.5 mb-5 relative flex-row justify-around items-center">
-                        <div className="bg-gray-primary h-px relative top-0.5 flex-grow w-24 -left-4" />
-                        <div className="flex-grow-0">Hoặc</div>
-                        <div className="bg-gray-primary h-px relative top-0.5 flex-grow w-24 -right-4"/> 
+                    <div className="flex text-gray-graybold w-88-percent font-medium text-xs uppercase mx-10 mt-3 mb-5 relative flex-row justify-around items-center">
+                        <div className="bg-gray-primary h-px relative top-0.5 flex-grow -left-4" />
+                        <div className="flex-grow-0 text-sm">Hoặc</div>
+                        <div className="bg-gray-primary h-px relative top-0.5 flex-grow -right-4"/> 
                     </div>
 
                     <div>
@@ -158,7 +158,7 @@ export default function login() {
                     </div>
                 </div>
                 
-                <div className="flex justify-center items-center flex-col w-full bg-white p-4 border border-gray-primary">
+                <div className="flex justify-center items-center flex-col w-full bg-white p-5 border border-gray-primary">
                     <p className="text-sm">bạn chưa có tài khoản? 
                         <Link to={ROUTES.SIGN_UP} className="font-semibold text-blue-medium ml-1">Đăng ký</Link>
                     </p>
@@ -169,10 +169,10 @@ export default function login() {
 
                     <div className="flex justify-around my-2.5 mx-0">
                         <a href="https://apps.apple.com/app/instagram/id389801252?vt=lo" className="mr-2">
-                            <img className="max-h-10" src="/images/appstore.png" alt="AppStore"/>
+                            <img className="max-h-11" src="/images/appstore.png" alt="AppStore"/>
                         </a>
                         <a href="https://apps.apple.com/app/instagram/id389801252?vt=lo" className="mr-0">
-                            <img className="max-h-10" src="/images/chplay.png" alt="AppStore"/>
+                            <img className="max-h-11" src="/images/chplay.png" alt="AppStore"/>
                         </a>
                     </div>
                 </div>

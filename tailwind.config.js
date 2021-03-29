@@ -53,17 +53,20 @@ module.exports = {
 					'100%': {
 						transform: 'scale(1.0)'
 					}
-				}
+				},
+				
 			},
 			animation: {
 				mobileScreen: 'mobileScreen 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
 				scaletext: 'scaletext 0.5s cubic-bezier(1, 1, 0.2, 1)'
 			},
 			maxWidth:{
-				maxwidth350: '350px',
+				maxwidth350: '380px',
 				maxwidth258: '258px',
 			},
-			
+			width:{
+				'88-percent': '88%'
+			}
 		},
 	},
 }

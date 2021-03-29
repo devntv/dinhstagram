@@ -1,3 +1,5 @@
+/* eslint-disable no-empty */
+/* eslint-disable no-shadow */
 /* eslint-disable prettier/prettier */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-nested-ternary */
@@ -8,10 +10,9 @@ import { Link, useHistory } from 'react-router-dom'
 import { AiFillFacebook, AiFillGithub } from 'react-icons/ai'
 import { RiVuejsLine, RiEarthLine } from 'react-icons/ri'
 import ClipLoader from "react-spinners/ClipLoader"
-
 import FirebaseContext from '../context/firebase'
 import * as ROUTES from '../contants/routes'
-
+import {doesUsernameExist} from '../services/firebase'
 
 export default function login() {
     const history = useHistory();
@@ -38,13 +39,17 @@ export default function login() {
 
     const handleSignUp = async (event) => {
         event.preventDefault();
-        // try {
-        //     setLoadingBtn(true)
+        const usernameExist = await doesUsernameExist(userName);
+        if(usernameExist){
+            try {
+                const createUserResult = await firebase
+                .auth()
+                .createUserWithEmailAndPassword(emailAddress, password)
+            } catch (error) {
+                
+            }
+        }
 
-        // } catch (e) {
-
-        //     setLoadingBtn(false)
-        // }
     }
     useEffect(() => {
         document.title = 'Đăng ký • Dinhstagram'
@@ -55,72 +60,72 @@ export default function login() {
         <>
             <div className="container flex mx-auto mt-10 px-3 max-w-screen-md justify-center items-center h-screen">
 
-                <div className="flex flex-col w-1/2 max-w-maxwidth350 ">
-                    <div className="flex flex-col items-center  bg-white p-4 mb-2 border border-gray-primary ">
+                <div className="flex flex-col  max-w-maxwidth350 ">
+                    <div className="flex flex-col items-center bg-white p-4 mb-2 border border-gray-primary ">
                         <h1 className="flex justify-center ">
                             <img className="mt-4 h-16 w-48 mx-auto mb-4" src='/images/logo2.png' alt="DinhstagramLogo" />
                         </h1>
 
-                        <h2 className="text-center mb-3 leading-5 mx-10  text-gray-graybold font-semibold">Đăng ký để xem ảnh và video từ bạn bè.</h2>
+                        <h1 className="text-center mb-3 leading-5 mx-10  text-gray-graybold font-semibold">Đăng ký để xem ảnh và video từ bạn bè.</h1>
 
-                        <button type="button" className="bg-blue-medium flex text-white w-full rounded h-8 font-semibold items-center justify-center max-w-maxwidth258">
+                        <button type="button" className="bg-blue-medium flex text-white w-full rounded h-9 font-semibold items-center justify-center max-w-maxwidth258">
                             <span className="text-xl mr-1"><AiFillFacebook /></span>
                         Đăng nhập bằng Facebook
                     </button>
 
                         <div className="flex text-gray-graybold font-medium text-xs uppercase mx-10 mt-2.5 mb-5 relative flex-row justify-around items-center">
                             <div className="bg-gray-primary h-px relative top-0.5 flex-grow w-24 -left-4" />
-                            <div className="flex-grow-0">Hoặc</div>
+                            <div className="flex-grow-0 text-sm">Hoặc</div>
                             <div className="bg-gray-primary h-px relative top-0.5 flex-grow w-24 -right-4" />
                         </div>
 
                         <form onSubmit={handleSignUp} method="POST" className="p-0 m-0 max-w-maxwidth258 relative">
-                            { isInputEmail && <p className="text-xs mt-0 text-gray-graybold h-0 absolute top-1 left-2 animate-scaletext">Email</p>}
+                            { isInputEmail && <p className="text-xs mt-0 text-gray-graybold h-0 absolute top-1 left-2 animate-scaletext">Email :</p>}
                             <input
                                 aria-label="Nhập vào địa chỉ Email, tên người dùng hoặc số điện thoại"
                                 type="text"
                                 placeholder="Địa chỉ Email"
                                 className={`text-xs text-gray-base w-full mr-3 py-4 px-4 h-10 border border-gray-primary
-                                    rounded mb-3 bg-gray-background ${isInputEmail && `text-xs pt-4 pr-0 pb-1 pl-2 text-black-faded font-medium`}`}
+                                    rounded mb-2 bg-gray-background ${isInputEmail && `text-xs pt-4 pr-0 pb-1 pl-2 text-black-faded font-medium`}`}
                                 onChange={({ target }) => setEmailAddress(target.value)}
                                 value={emailAddress}
                             />
 
-                            { isInputFullname && <p className="text-xs mt-0 text-gray-graybold h-0 absolute top-14 left-2 animate-scaletext">tên đầy đủ</p>}
+                            { isInputFullname && <p className="text-xs -mt-1 text-gray-graybold h-0 absolute top-14 left-2 animate-scaletext">Tên đầy đủ :</p>}
                             <input
                                 aria-label="Nhập vào tên đầy đủ"
                                 type="text"
                                 placeholder="Tên đầy đủ"
                                 className={`text-xs text-gray-base w-full mr-3 py-4 px-4 h-10 border border-gray-primary
-                                rounded mb-3 bg-gray-background ${isInputFullname && `text-xs pt-4 pr-0 pb-1 pl-2 text-black-faded font-medium`}`}
+                                rounded mb-2 bg-gray-background ${isInputFullname && `text-xs pt-6 pr-0 pb-3 pl-2 text-black-faded font-medium`}`}
                                 onChange={({ target }) => setFullName(target.value)}
                                 value={fullName}
                             />
 
-                            { isInputUsername && <p className="text-xs mt-1 text-gray-graybold h-0 absolute top-26 left-2 animate-scaletext">tên người dùng</p>}
+                            { isInputUsername && <p className="text-xs mt-1 text-gray-graybold h-0 absolute top-26 left-2 animate-scaletext">Tên người dùng :</p>}
                             <input
                                 aria-label="Nhập vào tên người dùng"
                                 type="text"
                                 placeholder="Tên người dùng"
                                 className={`text-xs text-gray-base w-full mr-3 py-4 px-4 h-10 border border-gray-primary
-                                rounded mb-3 bg-gray-background ${isInputUsername && `text-xs pt-4 pr-0 pb-1 pl-2 text-black-faded font-medium`}`}
+                                rounded mb-2 bg-gray-background ${isInputUsername && `text-xs pt-4 pr-0 pb-1 pl-2 text-black-faded font-medium`}`}
                                 onChange={({ target }) => setUserName(target.value)}
                                value={userName}
                             />
 
-                            { isInputPassword && <p className="text-xs mt-0 text-gray-graybold h-0 absolute top-40 left-2 animate-scaletext">mật khẩu</p>}
+                            { isInputPassword && <p className="text-xs mt-1 text-gray-graybold h-0 absolute top-36 left-2 animate-scaletext">Mật khẩu :  {password.length} kí tự</p>}
                             <input
                                 aria-label="Nhập vào password"
                                 type={!displayPass ? 'text' : 'password'}
                                 placeholder="Mật khẩu"
                                 className={`text-xs text-gray-base w-full mr-3 py-4 px-4 h-10 border border-gray-primary
-                                rounded mb-3 bg-gray-background ${isInputPassword && `text-xs pt-4 pr-0 pb-1 pl-2 text-black-faded font-medium`}`}
+                                rounded mb-2 bg-gray-background ${isInputPassword && `text-xs pt-4 pr-0 pb-1 pl-2 text-black-faded font-medium`}`}
                                 onChange={({ target }) => setPassword(target.value)}
                                 value={password}
                             />
                             <div className="flex justify-end h-0">
                                 <button type="button"
-                                    className="relative font-semibold bottom-10 right-2 text-sm cursor-pointer"
+                                    className="relative font-semibold bottom-9 right-2 text-sm cursor-pointer"
                                     onClick={handleDisplay}
                                 > {password === '' ? '' : 'Hiển thị' && displayPass ? 'Hiển thị' : 'Ẩn'}
 
@@ -128,7 +133,7 @@ export default function login() {
                             </div>
 
                             <button type="submit" disabled={isInvalid}
-                                className={`bg-blue-medium text-white w-full rounded h-8 font-semibold ${isInvalid && `opacity-50 cursor-default`}`}
+                                className={`bg-blue-medium text-white w-full rounded h-9 font-semibold ${isInvalid && `opacity-50 cursor-default`}`}
                             >{loadingBtn ? <ClipLoader className="flex items-center justify-center" color="#ffffff"
                                 loading={loadingBtn} size={20} /> : 'Đăng ký'}</button>
 

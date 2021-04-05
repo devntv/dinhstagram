@@ -36,18 +36,56 @@ export default function login() {
     const handleDisplay = () => {
         setDisplayPass(!displayPass)
     }
-
+// sign -up and check user is already exist
     const handleSignUp = async (event) => {
         event.preventDefault();
+        setLoadingBtn(true);
         const usernameExist = await doesUsernameExist(userName);
-        if(usernameExist){
+       
+        if(!usernameExist.length){
             try {
                 const createUserResult = await firebase
                 .auth()
                 .createUserWithEmailAndPassword(emailAddress, password)
+
+                // auth => email and pass and username (display name)
+                await createUserResult.user.updateProfile({
+                    displayName: userName
+                });
+
+                // firebase user collection -> create a document
+                await firebase.firestore().collection('users').add({
+                    userId: createUserResult.user.uid,
+                    username: userName.toLowerCase(),
+                    fullName,
+                    emailAddress: emailAddress.toLowerCase(),
+                    following: [],
+                    dateCreated: Date.now()
+
+                });
+                setLoadingBtn(false);
+                history.push(ROUTES.DASHBOARD);
             } catch (error) {
-                
+                setLoadingBtn(false);
+               if(error.code === "auth/email-already-in-use"){
+                setError('Địa chỉ Email hoặc người dùng bạn vừa nhập đã được sử dụng bởi tài khoản khác.');
+                setEmailAddress('');
+                setFullName('');
+                setPassword('');
+                setUserName('');          
+               }   
+               if(error.code === 'auth/invalid-email'){
+                setError('Địa chỉ Email vừa nhập không đúng định dạng.');
+                setEmailAddress('');
+               }   
             }
+        } else {
+            setLoadingBtn(false);
+            setEmailAddress('');
+            setFullName('');
+            setPassword('');
+            setUserName('');       
+            setError('Người dùng bạn vừa đăng ký đã tồn tại, vui lòng chọn 1 người dùng khác!')
         }
 
     }
@@ -58,7 +96,7 @@ export default function login() {
 
     return (
         <>
-            <div className="container flex mx-auto mt-10 px-3 max-w-screen-md justify-center items-center h-screen">
+            <div className="container flex mx-auto px-3 max-w-screen-md justify-center items-center h-screen">
 
                 <div className="flex flex-col  max-w-maxwidth350 ">
                     <div className="flex flex-col items-center bg-white p-4 mb-2 border border-gray-primary ">
@@ -137,6 +175,7 @@ export default function login() {
                             >{loadingBtn ? <ClipLoader className="flex items-center justify-center" color="#ffffff"
                                 loading={loadingBtn} size={20} /> : 'Đăng ký'}</button>
 
+                            {error && <p className="mt-3.5 text-center text-sm text-red-primary">{error}</p>}
                             <p className="text-center my-2.5 text-xs  text-gray-graybold">
                                 Bằng cách đăng ký, bạn đồng ý với 
                                 <a className="font-semibold" href="https://help.instagram.com/581066165581870"> Điều khoản</a>,
@@ -144,11 +183,10 @@ export default function login() {
                                 và
                                 <a className="font-semibold" href="https://www.instagram.com/legal/cookies/"> chính sách cookie </a>
                                  của chúng tôi.
-                            </p>    
-
+                            </p>               
                         </form>
 
-                        {error && <p className="mt-3.5 text-center text-sm text-red-primary">{error}</p>}
+                      
 
                     </div>
 

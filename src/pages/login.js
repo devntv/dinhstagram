@@ -2,13 +2,11 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable react/jsx-filename-extension */
-
-
 import React, { useState, useContext, useEffect, Fragment } from 'react'
+import { useAlert } from 'react-alert'
 import { Link, useHistory } from 'react-router-dom'
-import {AiFillFacebook, AiFillGithub,} from 'react-icons/ai'
-import {RiVuejsLine,RiEarthLine} from 'react-icons/ri'
-import ClipLoader from "react-spinners/ClipLoader";
+import { AiFillFacebook } from 'react-icons/ai'
+import PulseLoader from 'react-spinners/PulseLoader'
 import s1 from '../images/s1.png'
 import s2 from '../images/s2.png'
 import s3 from '../images/s3.png'
@@ -16,7 +14,7 @@ import s4 from '../images/s4.png'
 import s5 from '../images/s5.png'
 import FirebaseContext from '../context/firebase'
 import * as ROUTES from '../contants/routes'
-
+import Footer from './footer'
 
 
 export default function login() {
@@ -37,12 +35,16 @@ export default function login() {
         setDisplayPass(!displayPass)
     }
 
+     // alert show
+    const alert = useAlert()
+    // login
     const handleLogin = async (event) => {
         event.preventDefault();
         try {
             setLoadingBtn(true);
             await firebase.auth().signInWithEmailAndPassword(emailAddress, password);
             history.push(ROUTES.DASHBOARD);
+            alert.success(<span style={{textTransform:'none'}}>Đăng nhập thành công🎉</span>, ({timeout: 1800}))
             setLoadingBtn(false);
         } catch (e) {
             if(e.code === 'auth/invalid-email'){
@@ -63,7 +65,7 @@ export default function login() {
         }
     }
     useEffect(() => {
-        document.title = ' Đăng nhập • Dinhstagram'
+        document.title = ' Đăng nhập • Vinhstagram'
     }, [])
 
     // slide mobile screenShot
@@ -94,11 +96,11 @@ export default function login() {
             <div className="flex flex-col w-7/12">
                 <div className="flex flex-col items-center  bg-white p-6 mb-2 border border-gray-primary">
                     <h1 className="flex  justify-center ">
-                        <img className=" mt-4 h-16 w-48 mx-auto mb-4" src='/images/logo2.png' alt="DinhstagramLogo" />
+                        <img className=" mt-4 h-16 w-48 mx-auto mb-4" src='/images/vsgLogo.png' alt="DinhstagramLogo" />
                     </h1>
                    
                     <form onSubmit={handleLogin} method="POST" className="relative">
-                        {isInputEmail && <p className="text-xs mt-0 text-gray-graybold h-0 absolute top-1 left-2 animate-scaletext">Email :</p>}
+                        {isInputEmail && <p className="text-xs -mt-1 text-gray-graybold h-0 absolute top-1 left-2 animate-scaletext">Email :</p>}
                         <input
                             aria-label="Nhập vào địa chỉ Email"
                             type="text"
@@ -133,11 +135,11 @@ export default function login() {
 
                         <button  type="submit" disabled={isInvalid}
                             className={`bg-blue-medium text-white w-full rounded h-9 font-semibold ${isInvalid && `opacity-50 cursor-default`}`}
-                        >{loadingBtn ? <ClipLoader className="flex items-center justify-center" color="#ffffff"
-                        loading={loadingBtn} size={20}/> : 'Đăng nhập' }</button>
+                        >{loadingBtn ? <PulseLoader className="flex items-center justify-center" color="#f7f7f7"
+                        loading={loadingBtn} size={10}/> : 'Đăng nhập' }</button>
                         
                     </form>
-                    
+                   
                     <div className="flex text-gray-graybold w-88-percent font-medium text-xs uppercase mx-10 mt-3 mb-5 relative flex-row justify-around items-center">
                         <div className="bg-gray-primary h-px relative top-0.5 flex-grow -left-4" />
                         <div className="flex-grow-0 text-sm">Hoặc</div>
@@ -154,7 +156,7 @@ export default function login() {
                     {error && <p className="mt-3.5 text-center text-sm text-red-primary">{error}</p>}
                     
                     <div className="mt-3.5">
-                        <a href="https://www.facebook.com/Dinh.nt1097" className="text-xs text-blue-bold">Quên mật khẩu? liên hệ Dinh đẹp trai tại đây !</a>
+                        <a href="https://www.facebook.com/Dinh.nt1097" className="text-xs text-blue-bold">Quên mật khẩu?</a>
                     </div>
                 </div>
                 
@@ -180,36 +182,7 @@ export default function login() {
             </div>
         </div>
         {/* footer login */}
-
-        <div className="flex flex-col items-center justify-center mt-10 ">
-            <div className="flex items-center">
-                <div className="flex flex-col mr-6 items-center">
-                    <span className=" text-gray-graybold text-3xl"><RiVuejsLine /></span>
-                    <div className="text-sm text-gray-graybold font-semibold">Dinh Dz</div>
-                </div>
-                <div className="text-gray-graybold text-sm ml-4 "> @2021 Dinhstagram all rights reserved.</div>
-            </div>
-
-            <div className="flex w-1/4 flex-col">
-                <p className="text-gray-graybold font-semibold text-xs text-center"> Contact infor</p>
-
-                <div className="flex items-center justify-around mt-2 text-2xl text-gray-graybold mb-2 ">
-                    <a href="https://www.github.com/devntv" className="ml-4 flex items-end">
-                        <AiFillGithub />
-                        <span className="text-xs ml-1">Github</span>
-                    </a>
-                    <a href="https://www.facebook.com/Dinh.nt1097" className="ml-4 flex items-end" >
-                        <AiFillFacebook />
-                        <span className="text-xs ml-1">Facebook</span>
-
-                    </a>
-                    <a href="https://www.vinhdz.fun/" className="ml-4 flex items-end">
-                        <RiEarthLine />
-                        <span className="text-xs ml-1">Website</span>
-                    </a>
-                </div>
-            </div>     
-        </div>
+        <Footer />
     </>  
     )
 }

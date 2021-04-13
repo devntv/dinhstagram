@@ -4,15 +4,17 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/jsx-filename-extension */
-
 import React, { useState, useContext, useEffect, Fragment } from 'react'
+// alert
+import { useAlert, transitions } from 'react-alert'
 import { Link, useHistory } from 'react-router-dom'
 import { AiFillFacebook, AiFillGithub } from 'react-icons/ai'
-import { RiVuejsLine, RiEarthLine } from 'react-icons/ri'
-import ClipLoader from "react-spinners/ClipLoader"
+import PulseLoader from 'react-spinners/PulseLoader'
 import FirebaseContext from '../context/firebase'
 import * as ROUTES from '../contants/routes'
 import {doesUsernameExist} from '../services/firebase'
+import Footer from './footer'
+
 
 export default function login() {
     const history = useHistory();
@@ -28,6 +30,7 @@ export default function login() {
     const isInputUsername = userName !=='';
 
     const [error, setError] = useState('');
+    const [showAlert, setShowAlert] = useState(false);
     const isInvalid = password.length < 6 || emailAddress === '';
     const [displayPass, setDisplayPass] = useState(true);
 
@@ -36,6 +39,8 @@ export default function login() {
     const handleDisplay = () => {
         setDisplayPass(!displayPass)
     }
+    // alert show
+    const alert = useAlert()
 // sign -up and check user is already exist
     const handleSignUp = async (event) => {
         event.preventDefault();
@@ -64,6 +69,10 @@ export default function login() {
 
                 });
                 setLoadingBtn(false);
+                alert.success(<div style={{textTransform:'none'}}>
+                                xin chào <span style={{color:'#0095f6', fontWeight:'bold', fontSize:'16px'}}>{userName}! 🙈🙈</span>
+                              </div>, 
+                              {timeout: 6000,  transition: transitions.FADE})
                 history.push(ROUTES.DASHBOARD);
             } catch (error) {
                 setLoadingBtn(false);
@@ -90,9 +99,10 @@ export default function login() {
 
     }
     useEffect(() => {
-        document.title = 'Đăng ký • Dinhstagram'
+        document.title = 'Đăng ký • Vinhstagram'
     }, [])
 
+   
 
     return (
         <>
@@ -101,7 +111,7 @@ export default function login() {
                 <div className="flex flex-col  max-w-maxwidth350 ">
                     <div className="flex flex-col items-center bg-white p-4 mb-2 border border-gray-primary ">
                         <h1 className="flex justify-center ">
-                            <img className="mt-4 h-16 w-48 mx-auto mb-4" src='/images/logo2.png' alt="DinhstagramLogo" />
+                            <img className="mt-4 h-16 w-48 mx-auto mb-4" src='/images/vsgLogo.png' alt="DinhstagramLogo" />
                         </h1>
 
                         <h1 className="text-center mb-3 leading-5 mx-10  text-gray-graybold font-semibold">Đăng ký để xem ảnh và video từ bạn bè.</h1>
@@ -109,7 +119,7 @@ export default function login() {
                         <button type="button" className="bg-blue-medium flex text-white w-full rounded h-9 font-semibold items-center justify-center max-w-maxwidth258">
                             <span className="text-xl mr-1"><AiFillFacebook /></span>
                         Đăng nhập bằng Facebook
-                    </button>
+                        </button>
 
                         <div className="flex text-gray-graybold font-medium text-xs uppercase mx-10 mt-2.5 mb-5 relative flex-row justify-around items-center">
                             <div className="bg-gray-primary h-px relative top-0.5 flex-grow w-24 -left-4" />
@@ -118,7 +128,7 @@ export default function login() {
                         </div>
 
                         <form onSubmit={handleSignUp} method="POST" className="p-0 m-0 max-w-maxwidth258 relative">
-                            { isInputEmail && <p className="text-xs mt-0 text-gray-graybold h-0 absolute top-1 left-2 animate-scaletext">Email :</p>}
+                            { isInputEmail && <p className="text-xs mt-0 text-gray-graybold h-0 absolute top-1 left-2 animate-scaletext">Email :  dùng để đăng nhập </p>}
                             <input
                                 aria-label="Nhập vào địa chỉ Email, tên người dùng hoặc số điện thoại"
                                 type="text"
@@ -172,8 +182,8 @@ export default function login() {
 
                             <button type="submit" disabled={isInvalid}
                                 className={`bg-blue-medium text-white w-full rounded h-9 font-semibold ${isInvalid && `opacity-50 cursor-default`}`}
-                            >{loadingBtn ? <ClipLoader className="flex items-center justify-center" color="#ffffff"
-                                loading={loadingBtn} size={20} /> : 'Đăng ký'}</button>
+                            >{loadingBtn ? <PulseLoader className="flex items-center justify-center" color="#f7f7f7"
+                                loading={loadingBtn} size={10} /> : 'Đăng ký'}</button>
 
                             {error && <p className="mt-3.5 text-center text-sm text-red-primary">{error}</p>}
                             <p className="text-center my-2.5 text-xs  text-gray-graybold">
@@ -183,7 +193,7 @@ export default function login() {
                                 và
                                 <a className="font-semibold" href="https://www.instagram.com/legal/cookies/"> chính sách cookie </a>
                                  của chúng tôi.
-                            </p>               
+                            </p>                                       
                         </form>
 
                       
@@ -212,36 +222,7 @@ export default function login() {
                 </div>
             </div>
             {/* footer login */}
-
-            <div className="flex flex-col items-center justify-center mt-14 ">
-                <div className="flex items-center">
-                    <div className="flex flex-col mr-6 items-center">
-                        <span className=" text-gray-graybold text-3xl"><RiVuejsLine /></span>
-                        <div className="text-sm text-gray-graybold font-semibold">Dinh Dz</div>
-                    </div>
-                    <div className="text-gray-graybold text-sm ml-4 "> @2021 Dinhstagram all rights reserved.</div>
-                </div>
-
-                <div className="flex w-1/4 flex-col">
-                    <p className="text-gray-graybold font-semibold text-xs text-center"> Contact infor</p>
-
-                    <div className="flex items-center justify-around mt-2 text-2xl text-gray-graybold mb-2 ">
-                        <a href="https://www.github.com/devntv" className="ml-4 flex items-end">
-                            <AiFillGithub />
-                            <span className="text-xs ml-1">Github</span>
-                        </a>
-                        <a href="https://www.facebook.com/Dinh.nt1097" className="ml-4 flex items-end" >
-                            <AiFillFacebook />
-                            <span className="text-xs ml-1">Facebook</span>
-
-                        </a>
-                        <a href="https://www.vinhdz.fun/" className="ml-4 flex items-end">
-                            <RiEarthLine />
-                            <span className="text-xs ml-1">Website</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
+            <Footer />
         </>
     )
 }

@@ -1,0 +1,15 @@
+.afterHeaderProfile::after{
+    content: '';
+    height: 15px;
+    width: 15px;
+    position: absolute;
+    right: 21px;
+    top: -20px;
+    border-color: transparent transparent #e2e2e2 transparent !important;
+    border: 10px solid ; 
+}
+
+.afterHeaderProfile{
+    box-shadow: 0 0 5px 1px rgb(0 0 0 / 10%);
+    margin-top: 135px;
+}

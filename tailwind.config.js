@@ -15,7 +15,7 @@ module.exports = {
 				bold: '#385185',
 			},
 			black: {
-				light: '#005c98',
+				light: '#262626',
 				faded: '#00000059',
 				dowload: '#262626',
 				bold: '#262626'
@@ -25,12 +25,14 @@ module.exports = {
 				background: '#fafafa',
 				primary: '#dbdbdb',
 				graybold: '#8c8c8c',
+				graysemibold: '#c7c7c7'
 			},
 			red: {
 				primary: '#ed4956',
 			},
 		},
 
+	
 		extend: {
 			keyframes: {
 				mobileScreen: {
@@ -54,7 +56,10 @@ module.exports = {
 						transform: 'scale(1.0)'
 					}
 				},
-				
+			
+			},
+			inset: {
+				'88px':'5.5rem'
 			},
 			animation: {
 				mobileScreen: 'mobileScreen 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
@@ -64,9 +69,13 @@ module.exports = {
 				maxwidth350: '380px',
 				maxwidth258: '258px',
 			},
+			minWidth:{
+				minwidth215: '230px'
+			},
 			width:{
 				'88-percent': '88%'
-			}
+			},
+			
 		},
 	},
 }

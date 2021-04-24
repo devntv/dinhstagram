@@ -16,6 +16,6 @@ export default function useUser() {
 			getUserObjwithUserId()
 		}
 	}, [user])
-
+	// console.log('active', activeUser)
 	return { user: activeUser }
 }

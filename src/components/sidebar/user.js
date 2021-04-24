@@ -2,35 +2,51 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/react-in-jsx-scope */
-import { memo } from 'react'
+import { useContext } from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import Skeleton from 'react-loading-skeleton'
+import FirebaseContext from '../../context/firebase'
+import * as ROUTES from '../../contants/routes'
 
-const User = ({ username, fullName }) =>
-	!username || !fullName ? (
+export default function User({ username, fullName }) {
+	const { firebase } = useContext(FirebaseContext)
+	const history = useHistory()
+	return !username || !fullName ? (
 		<Skeleton count={1} height={61} />
 	) : (
-		<Link
-			to={`/profile/${username}`}
-			className='grid grid-cols-4 gap-4 mb-6 items-center'
-		>
-			<div className='flex items-center justify-between col-span-1'>
-				<img
-					className='rounded-full w-12  mr-3 flex'
-					src={`/images/avatars/${username}.jpg`}
-					// src='/images/avatars/avatar1.jpg'
-					alt=''
-				/>
+		<>
+			<div className='flex mb-6 items-center'>
+				<Link
+					to={`/profile/${username}`}
+					className='flex items-center justify-between '
+				>
+					<img
+						className='rounded-full w-12  mr-3 flex'
+						src={`/images/avatars/${username}.jpg`}
+						// src='/images/avatars/avatar1.jpg'
+						alt=''
+					/>
+				</Link>
+				<Link to={`/profile/${username}`} className='ml-2'>
+					<p className='font-medium text-base text-black-light '>{username}</p>
+					<p className='text-sm text-gray-graybold'>{fullName}</p>
+				</Link>
+				<button
+					type='button'
+					className='ml-auto text-xs font-bold'
+					onClick={() => {
+						firebase.auth().signOut()
+						history.push(ROUTES.LOGIN)
+					}}
+				>
+					<p className='text-blue-light'>Đăng xuất</p>
+				</button>
 			</div>
-			<div className='col-span-3'>
-				<p className='font-medium text-base text-black-light '>{username}</p>
-				<p className='text-sm text-gray-graybold'>{fullName}</p>
-			</div>
-		</Link>
+		</>
 	)
-
-export default memo(User)
+}
+User.whyDidYouRender = true
 
 // User.propTypes = {
 // 	username: PropTypes.string.isRequired,

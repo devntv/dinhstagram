@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react'
 import { AiFillFacebook, AiFillGithub } from 'react-icons/ai'
@@ -5,22 +6,20 @@ import { RiVuejsLine, RiEarthLine } from 'react-icons/ri'
 
 export default function Footer() {
 	return (
-		<div className='flex flex-col items-center justify-center -mt-12 '>
-			<div className='flex items-center'>
-				<div className='flex flex-col mr-6 items-center'>
-					<span className=' text-gray-graybold text-3xl'>
+		<div className='flex flex-col items-center justify-center -mt-12'>
+			<div className='flex items-center justify-center'>
+				<div className='flex flex-col mr-4 items-center'>
+					<span className='text-3xl text-red-light'>
 						<RiVuejsLine />
 					</span>
-					<div className='text-sm text-gray-graybold font-semibold'>
-						Dinh Dz
-					</div>
+					<div className='text-sm text-red-light font-semibold'>Vinh Dz</div>
 				</div>
-				<div className='text-gray-graybold text-sm ml-4 '>
-					@2021 Dinhstagram all rights reserved.
+				<div className='text-gray-graybold text-sm overflow-hidde'>
+					Made with 🐤 by Devntv ● @2021 Vinhstagram all rights reserved.
 				</div>
 			</div>
 
-			<div className='flex w-1/4 flex-col'>
+			{/* <div className='flex w-1/4 flex-col'>
 				<p className='text-gray-graybold font-semibold text-xs text-center'>
 					Contact infor
 				</p>
@@ -45,7 +44,7 @@ export default function Footer() {
 						<span className='text-xs ml-1'>Website</span>
 					</a>
 				</div>
-			</div>
+			</div> */}
 		</div>
 	)
 }

@@ -1,6 +1,11 @@
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
 /* eslint-disable prettier/prettier */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable no-unused-vars */
+// import './whydidyourender'
+
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 // alert

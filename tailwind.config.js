@@ -13,23 +13,29 @@ module.exports = {
 			blue: {
 				medium: '#0095f6',
 				bold: '#385185',
+				light: '#03afd6',
 			},
 			black: {
 				light: '#262626',
 				faded: '#00000059',
 				dowload: '#262626',
-				bold: '#262626'
+				bold: '#2d2d2d'
 			},
 			gray: {
 				base: '#616161',
 				background: '#fafafa',
 				primary: '#dbdbdb',
 				graybold: '#8c8c8c',
-				graysemibold: '#c7c7c7'
+				graysemibold: '#c7c7c7',
+				graysuggeseted: '#8e8e8e'
 			},
 			red: {
 				primary: '#ed4956',
+				light: '#ff8c8c'
 			},
+			linear: {
+				lineargradient: 'linear-gradient(to right, red, purple)'
+			}
 		},
 
 	

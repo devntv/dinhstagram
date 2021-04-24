@@ -13,3 +13,23 @@
     box-shadow: 0 0 5px 1px rgb(0 0 0 / 10%);
     margin-top: 135px;
 }
+
+.gradient-border{
+    background-clip: padding-box;
+    position: relative;
+    border-radius: 9999px;
+}
+.gradient-border::before{
+    content: '';
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    z-index: -1;
+    margin: -2px;
+    border-radius: inherit; /* !importanté */
+    background: linear-gradient(45deg, #ecc724, #d817be);
+    /* color: #d817be; */
+}
+
+.gradient-border:hover .gradient-border::before{
+    cursor: pointer;
+}

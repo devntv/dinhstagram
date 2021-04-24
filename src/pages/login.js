@@ -126,7 +126,7 @@ export default function login() {
                         />
                         <div className="flex justify-end h-0">
                             <button type="button"
-                                className="relative font-semibold bottom-10 right-2 text-sm cursor-pointer"
+                                className="relative font-semibold bottom-10 right-2 text-sm cursor-pointer focus:outline-none"
                                 onClick={handleDisplay}
                             > {password === '' ? '' : 'Hiển thị' && displayPass ? 'Hiển thị' : 'Ẩn'}
 

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-return-assign */
 /* eslint-disable jsx-a11y/anchor-is-valid */
@@ -9,10 +10,11 @@ import { Link, useHistory } from 'react-router-dom'
 import ClipLoader from "react-spinners/ClipLoader";
 import OutsideClickHandler from 'react-outside-click-handler';
 // icon
-import { FiLogOut } from 'react-icons/fi'
+import { FiLogOut, FiSend } from 'react-icons/fi'
 import { CgProfile } from 'react-icons/cg'
 import { MdCancel } from 'react-icons/md'
-import { IoMdHeartEmpty, IoMdHeart, IoMdPaperPlane, IoIosPaperPlane, IoIosSearch } from 'react-icons/io'
+import { IoMdHeartEmpty, IoMdHeart, IoIosSearch, IoIosSend, IoIosHeartEmpty} from 'react-icons/io'
+import { VscHeart } from 'react-icons/vsc'
 import { FaCompass  } from 'react-icons/fa'
 import { ImCompass2 } from 'react-icons/im'
 import { BsHouseDoorFill, BsHouseDoor } from 'react-icons/bs'
@@ -23,14 +25,15 @@ import  '../CSS-style/header.css'
 
 
 
-export default function header() {
-    const history = useHistory();
+export default function header() {   
     const { firebase } = useContext(FirebaseContext)
     const { user } = useContext(UserContext)
-
+    const history = useHistory();
+    // console.log(user);
     // when logOut will be call it
     const [LoadingLogout, setLodingLogout] = useState(true)
     // icon state change onClick
+    // const [logoClick, setLogoClick] = useState(false)
     const [iconHome, setIconHome] = useState(false)
     const [iconplane, setIconplane] = useState(true)
     const [iconHeart, setIconHeart] = useState(true)
@@ -40,6 +43,18 @@ export default function header() {
     // search header
     const [searchToggle, setSearchToggle] = useState(false)
     const [searchValue, setSearchValue] = useState('')
+    // const headerLogoClick = () =>{
+    //     setLogoClick(!logoClick)
+    //     setTimeout(()=>{
+    //         setLogoClick(!logoClick)
+    //     },1000)
+    // }
+    // const headerLogoClickKeyDown =()=>{
+    //     setLogoClick(!logoClick)
+    //     setTimeout(()=>{
+    //         setLogoClick(!logoClick)
+    //     },1000)
+    // }
     const handleSearchToggle =() =>{
         setSearchToggle(true)  
     }
@@ -80,6 +95,7 @@ export default function header() {
         // setIconHome(!iconHome)
     }
         
+   
     useEffect(()=>{
       const timeoutClear =  setTimeout(()=>{
             setLodingLogout(false)
@@ -93,13 +109,14 @@ export default function header() {
  
 
     return (
-        <header className='h-16 bg-white border-b border-gray-primary mb-8 sticky' role="presentation" >
-            <div className='container mx-auto h-full max-w-screen-lg'>
-                <div className='flex h-full justify-between'>
+        <header className='h-16 border-b border-gray-primary mb-8 sticky top-0 w-full bg-gray-background z-50 ' role="presentation" >
+            <div className='container mx-auto h-full max-w-screen-lg '>
+                <div className='flex h-full justify-between '>
                     <div className='text-center items-center flex cursor-pointer text-bg-gray-700 '>
-                        <h1 className='flex justify-center w-full'>
+                        <h1 className='flex justify-center w-full '>
                             <Link to ={ROUTES.DASHBOARD} >
-                                <img className='bg-cover w-6/12 h-full object-cover' src='/images/vsgLogo.png' alt='logo'/>
+                                <img className= 'bg-cover w-6/12 h-full object-cover' 
+                                src='/images/vsgLogo.png' alt='Vinhstagram-logo'  />
                             </Link>
                         </h1>                      
                     </div>
@@ -119,33 +136,33 @@ export default function header() {
                    <div className='text-center flex items-center'>
                        {user ? (<> 
                                     <Link to ={ROUTES.DASHBOARD} onClick={clickIconHome}>
-                                        {iconHome ? <BsHouseDoor className='h-7 w-7 text-black-light text-2xl'/> : <BsHouseDoorFill className='h-7 w-7 text-black-light text-2xl'/>}
+                                        {iconHome ? <BsHouseDoor className='h-6 w-7 text-black-light text-2xl'/> : <BsHouseDoorFill className='h-6 w-7 text-black-light text-2xl'/>}
                                     </Link>
 
                                     <Link to={ROUTES.DASHBOARD} onClick={clickIconPlane}>
-                                        {iconplane ? <IoMdPaperPlane  className='h-7 w-7 ml-2 text-2xl' /> : <IoIosPaperPlane className='h-7 w-7 ml-2 text-2xl' />} 
+                                        {iconplane ? <FiSend  className='h-6 w-7 ml-4 text-2xl text-black-light font' /> : <IoIosSend className='h-7 w-7 ml-4 text-2xl' />} 
                                     </Link>
                                      {/* ImCompass2 */}
                                      <Link to={ROUTES.DASHBOARD} onClick={clickIconCompa}>
-                                        {iconCompa ? <ImCompass2  className='h-6 w-7 ml-3 text-2xl' /> : <FaCompass className='h-6 w-7 ml-3 text-2xl' />} 
+                                        {iconCompa ? <ImCompass2  className='h-6 w-7 ml-4 text-2xl' /> : <FaCompass className='h-6 w-7 ml-4 text-2xl' />} 
                                     </Link>
 
                                     <Link to={ROUTES.DASHBOARD} onClick={clickIconHeart}>
-                                        {iconHeart ? <IoMdHeartEmpty className='h-7 w-7 ml-3 text-2xl'   /> : <IoMdHeart  className='h-7 w-7 ml-3 text-2xl' />}
+                                        {iconHeart ? <IoMdHeartEmpty className='h-7 w-7 ml-4 text-2xl'   /> : <IoMdHeart  className='h-7 w-7 ml-4 text-2xl' />}
                                     </Link>
                               
                                     <OutsideClickHandler onOutsideClick={()=>{setAvatarProfileClick(false);}}>
                                         <div className='flex items-center cursor-pointer relative ml-3' onClick={clickAvatarProfile} role="presentation">
-                                            <div  className={avatarProfileClick ? 'border rounded-full border-blue-medium' :'border border-white rounded-full'}>
+                                            <div  className={avatarProfileClick ? 'gradient-border' :'border-0'}>
                                                 <img 
                                                 //  src={`/images/avatars/${user.displayName}.jpg`}
                                                 src='/images/avatars/ntvinh.jpg'
-                                                className='h-8 w-8 flex rounded-full border-2 border-white bg-cover object-center overflow-hidden' alt={`${user.displayName}profile`}/>
+                                                className='h-8 w-8 flex rounded-full border-2 border-transparent border-white bg-cover object-center overflow-hidden' alt={`${user.displayName}profile`}/>
                                             </div>                                 
 
                                             {avatarProfileClick ?                                                
                                                     <div className='absolute -left-32 border rounded-md h-auto w-44 bg-white border-gray-primary afterHeaderProfile flex flex-col'>
-                                                        <Link to={ROUTES.PROFILE} className='mt-1 flex items-center h-8 justify-start text-gray-base hover:bg-gray-background'>
+                                                        <Link to={`/profile/${user?.displayName}`} className='mt-1 flex items-center h-8 justify-start text-gray-base hover:bg-gray-background'>
                                                             <CgProfile className='mr-3 ml-3 flex text-lg'/> 
                                                             <p>trang cá nhân</p>
                                                         </Link>

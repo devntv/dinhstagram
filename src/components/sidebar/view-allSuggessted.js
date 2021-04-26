@@ -17,8 +17,11 @@ const override = css`
   display: flex;
   margin: 0 auto;
   width: 100%;
-  position: relative;
-
+  position: fixed;
+  left: 0;
+  margin-top: -110px;
+  z-index: 999;
+  height: 5px;
 }
 `;
 
@@ -65,6 +68,7 @@ export default function ViewAllSuggested() {
                                     key={profile?.docId}
                                     profileDocId={profile.docId}
                                     username={profile?.username}
+                                    verification={profile.verification}
                                     loggedInUserdocId ={docId}
                                     profileId={profile.userId}
                                     userId ={userId}

@@ -22,7 +22,8 @@ export default function User({ username, fullName }) {
 					className='flex items-center justify-between '
 				>
 					<img
-						className='rounded-full w-12  mr-3 flex'
+						draggable='false'
+						className='rounded-full w-12 select-none mr-3 flex '
 						src={`/images/avatars/${username}.jpg`}
 						// src='/images/avatars/avatar1.jpg'
 						alt=''
@@ -40,7 +41,7 @@ export default function User({ username, fullName }) {
 						history.push(ROUTES.LOGIN)
 					}}
 				>
-					<p className='text-blue-light'>Đăng xuất</p>
+					<p className='text-blue-light select-none'>Đăng xuất</p>
 				</button>
 			</div>
 		</>

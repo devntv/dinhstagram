@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-return-assign */
@@ -5,7 +6,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable prettier/prettier */
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useRef } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import ClipLoader from "react-spinners/ClipLoader";
 import OutsideClickHandler from 'react-outside-click-handler';
@@ -33,7 +34,7 @@ export default function header() {
     // when logOut will be call it
     const [LoadingLogout, setLodingLogout] = useState(true)
     // icon state change onClick
-    // const [logoClick, setLogoClick] = useState(false)
+    const [logoClick, setLogoClick] = useState(false)
     const [iconHome, setIconHome] = useState(false)
     const [iconplane, setIconplane] = useState(true)
     const [iconHeart, setIconHeart] = useState(true)
@@ -41,14 +42,13 @@ export default function header() {
     const [avatarProfileClick, setAvatarProfileClick] = useState(false);
 
     // search header
+    const inputSearch = useRef(null)
     const [searchToggle, setSearchToggle] = useState(false)
     const [searchValue, setSearchValue] = useState('')
-    // const headerLogoClick = () =>{
-    //     setLogoClick(!logoClick)
-    //     setTimeout(()=>{
-    //         setLogoClick(!logoClick)
-    //     },1000)
-    // }
+    const headerLogoClick = () =>{
+        setLogoClick(!logoClick)
+    }
+  
     // const headerLogoClickKeyDown =()=>{
     //     setLogoClick(!logoClick)
     //     setTimeout(()=>{
@@ -57,6 +57,7 @@ export default function header() {
     // }
     const handleSearchToggle =() =>{
         setSearchToggle(true)  
+        inputSearch.current.focus()
     }
     const clearSearch =() =>{
         setSearchValue('')
@@ -109,14 +110,17 @@ export default function header() {
  
 
     return (
-        <header className='h-16 border-b border-gray-primary mb-8 sticky top-0 w-full bg-gray-background z-50 ' role="presentation" >
+        <header className='h-14 border-b border-gray-primary mb-7 fixed top-0 w-full bg-white z-50 ' role="presentation" >
             <div className='container mx-auto h-full max-w-screen-lg '>
                 <div className='flex h-full justify-between '>
                     <div className='text-center items-center flex cursor-pointer text-bg-gray-700 '>
                         <h1 className='flex justify-center w-full '>
                             <Link to ={ROUTES.DASHBOARD} >
-                                <img className= 'bg-cover w-6/12 h-full object-cover' 
-                                src='/images/vsgLogo.png' alt='Vinhstagram-logo'  />
+                                <img className= {`bg-cover w-6/12 h-full object-cover ${logoClick ? 'opacity-40': ''} `}
+                                     src='/images/vsgLogo.png' alt='Vinhstagram-logo'
+                                     onMouseDown={headerLogoClick} 
+                                     onMouseUp={headerLogoClick}
+                                     />
                             </Link>
                         </h1>                      
                     </div>
@@ -126,7 +130,7 @@ export default function header() {
                         {/* toggle search input like instagram */}
                                 <div className='flex w-full items-center bg-gray-background border rounded-sm border-gray-primary min-w-minwidth215'>
                                     <IoIosSearch className={searchToggle ? 'text-gray-graybold text-base mr-1 ml-1 left-0':'text-gray-graybold text-base mr-1 ml-1 left-16 absolute'}/>
-                                    <input value={searchValue} placeholder={searchToggle ? 'tìm kiếm...': ''} className='bg-gray-background focus:outline-none h-7 flex-grow' onChange={({target}) => setSearchValue(target.value)}/>
+                                    <input ref={inputSearch} value={searchValue} placeholder={searchToggle ? 'tìm kiếm...': ''} className='bg-gray-background focus:outline-none h-7 flex-grow' onChange={({target}) => setSearchValue(target.value)}/>
                                     <span className={searchToggle ? 'hidden': 'text-sm text-gray-graybold absolute left-88px'}>tìm kiếm</span>
                                     <MdCancel className={searchToggle ? 'text-lg mr-1 text-gray-graysemibold cursor-pointer': 'hidden cursor-pointer'} onClick={clearSearch} />
                                 </div>
@@ -136,19 +140,19 @@ export default function header() {
                    <div className='text-center flex items-center'>
                        {user ? (<> 
                                     <Link to ={ROUTES.DASHBOARD} onClick={clickIconHome}>
-                                        {iconHome ? <BsHouseDoor className='h-6 w-7 text-black-light text-2xl'/> : <BsHouseDoorFill className='h-6 w-7 text-black-light text-2xl'/>}
+                                        {iconHome ? <BsHouseDoor className='h-6 w-7 text-2xl text-black-primary'/> : <BsHouseDoorFill className='h-6 w-7 text-black-light text-2xl'/>}
                                     </Link>
 
                                     <Link to={ROUTES.DASHBOARD} onClick={clickIconPlane}>
-                                        {iconplane ? <FiSend  className='h-6 w-7 ml-4 text-2xl text-black-light font' /> : <IoIosSend className='h-7 w-7 ml-4 text-2xl' />} 
+                                        {iconplane ? <FiSend  className='h-6 w-7 ml-4 text-2xl text-black-primary' /> : <IoIosSend className='h-7 w-7 ml-4 text-2xl' />} 
                                     </Link>
                                      {/* ImCompass2 */}
                                      <Link to={ROUTES.DASHBOARD} onClick={clickIconCompa}>
-                                        {iconCompa ? <ImCompass2  className='h-6 w-7 ml-4 text-2xl' /> : <FaCompass className='h-6 w-7 ml-4 text-2xl' />} 
+                                        {iconCompa ? <ImCompass2  className='h-6 w-7 ml-4 text-2xl text-black-primary' /> : <FaCompass className='h-6 w-7 ml-4 text-2xl' />} 
                                     </Link>
 
                                     <Link to={ROUTES.DASHBOARD} onClick={clickIconHeart}>
-                                        {iconHeart ? <IoMdHeartEmpty className='h-7 w-7 ml-4 text-2xl'   /> : <IoMdHeart  className='h-7 w-7 ml-4 text-2xl' />}
+                                        {iconHeart ? <IoMdHeartEmpty className='h-7 w-7 ml-4 text-2xl text-black-primary' /> : <IoMdHeart  className='h-7 w-7 ml-4 text-2xl' />}
                                     </Link>
                               
                                     <OutsideClickHandler onOutsideClick={()=>{setAvatarProfileClick(false);}}>

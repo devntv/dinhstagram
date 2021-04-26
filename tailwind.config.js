@@ -7,9 +7,10 @@ module.exports = {
 	theme: {
 		fill: (theme) => ({
 			red: theme('colors.red.primary'),
+			black: theme('colors.black.faded')
 		}),
 		colors: {
-			white: '#ffffff',
+			white: '#fff',
 			blue: {
 				medium: '#0095f6',
 				bold: '#385185',
@@ -19,7 +20,8 @@ module.exports = {
 				light: '#262626',
 				faded: '#00000059',
 				dowload: '#262626',
-				bold: '#2d2d2d'
+				bold: '#2d2d2d',
+				primary: '#463d3d'
 			},
 			gray: {
 				base: '#616161',
@@ -62,6 +64,45 @@ module.exports = {
 						transform: 'scale(1.0)'
 					}
 				},
+				postIconClickLike : {
+					'20%': {
+						opacity: '0.4',
+						transform: 'scale(1.0)',
+					},
+					
+					'50%': {
+						opacity: '0.6',
+						transform: 'scale(1.3)'
+					},
+					'80%': {
+						opacity: '0.8',
+						transform: 'scale(1.2)'
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'scale(1)'
+					}
+				},
+				postIconClickUnLike : {
+					'0%': {
+						opacity: '0.6',
+						transform: 'scale(1.0)',
+					},
+					
+					'50%': {
+						opacity: '0.6',
+						transform: 'scale(1.2)'
+					},
+					'80%': {
+						opacity: '0.8',
+						transform: 'scale(1)'
+					},
+				
+					'100%': {
+						opacity: '1',
+						transform: 'scale(1)'
+					}
+				}
 			
 			},
 			inset: {
@@ -69,7 +110,9 @@ module.exports = {
 			},
 			animation: {
 				mobileScreen: 'mobileScreen 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-				scaletext: 'scaletext 0.5s cubic-bezier(1, 1, 0.2, 1)'
+				scaletext: 'scaletext 0.5s cubic-bezier(1, 1, 0.2, 1)',
+				iconClickPost: 'postIconClickLike .3s ease-in-out',
+				postIconClickUnLike: 'postIconClickUnLike .3s ease-in-out'
 			},
 			maxWidth:{
 				maxwidth350: '380px',

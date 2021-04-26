@@ -14,7 +14,7 @@ export default function Sidebar() {
     // // console.log(docId);
     // console.log(user)
     return (
-        <div className='p-4'>
+        <div className='p-3 mt-0 left-2/3 sticky top-24'>
            <User username={username} fullName={fullName} /> 
            <Suggestions userId={userId} following={following} loggedInUserdocId={docId}/>
         </div>

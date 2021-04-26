@@ -6,21 +6,21 @@
 import React from 'react'
 import Skeleton from 'react-loading-skeleton'
 import usePhotos from '../hooks/use-photos'
+import Posts from './posts'
 
 export default function Timeline() {
     const { photos } = usePhotos()
     console.log('photos', photos);
     return (
-        <div className='container col-span-2'>
+        <div className='container col-span-2 p-0 rounded-sm border-gray-primary'>
             {!photos ? (
                 <>
-                    {[...new Array(6)].map((_,index) => (
-                        <Skeleton key={index} count={1} width={320} height={400}/>))}
+                     <Skeleton count={3} width='100%' height={550} className='mb-4'/>
                 </>
             ): photos?.length > 0 ? (
-                photos?.map((content) => <p key={content.docId}>{content.imageSrc}</p>)
+                photos?.map((content) => <Posts key={content.docId} content ={content} />)
             ):(
-                <p className='text-center text-2xl'>follow</p>
+                <p className='text-center text-xl mt-16'>Hãy theo dõi bạn bè để xem những cập nhật mới.</p>
             )}
         </div>
     )

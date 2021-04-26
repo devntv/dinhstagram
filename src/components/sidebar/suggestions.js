@@ -41,12 +41,12 @@ export default function Suggestions({ userId, following, loggedInUserdocId }) {
 	
 	
 
-	
+	console.log(profiles);
 	return !profiles ? (
 		<Skeleton  count={3} height={120} className='mt-5' />	
 	) : profiles ? (
-		<div className='flex rounded flex-col sticky top-0 w-full'>
-			<div className='text-sm flex items-center justify-between mb-2'>
+		<div className='flex rounded flex-col'>
+			<div className='text-sm flex items-center justify-between'>
 				<p className='font-semibold text-gray-graybold'>Gợi ý cho bạn</p>
 				<Link to={ROUTES.VIEW_ALLSUGGESTION} className='font-semibold text-xs cursor-pointer' >Xem tất cả</Link>
 			</div>
@@ -56,6 +56,7 @@ export default function Suggestions({ userId, following, loggedInUserdocId }) {
 						key={profile.docId}
 						profileDocId={profile.docId}
 						username={profile.username}
+						verification={profile.verification}
 						profileId={profile.userId}
 						userId={userId}
 						loggedInUserdocId={loggedInUserdocId}

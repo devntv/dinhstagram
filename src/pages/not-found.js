@@ -12,7 +12,7 @@ export default function NotFound() {
 	}, [])
 
 	return (
-		<div className='flex flex-col justify-between h-screen'>
+		<div className='flex flex-col justify-between h-screen mt-20'>
 			<Header />
 			<div className='bg-gray-background flex h-full justify-start flex-col'>
 				<div className='mx-auto max-w-screen-lg'>
@@ -30,8 +30,10 @@ export default function NotFound() {
 						<GiTerror />
 					</div>
 				</div>
+				<div className='mt-auto mb-20'>
+					<Footer />
+				</div>
 			</div>
-			<Footer />
 		</div>
 	)
 }

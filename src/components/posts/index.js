@@ -9,9 +9,10 @@ import Header from './header'
 import Image from './image'
 import Actions from './actions'
 import Footer from './footer'
+import Comments from './comment'
 
 export default function Posts({ content }) {
-  
+    
     const commentsInput = useRef(null)
     const handleFocus = () => commentsInput.current.focus();
     return (
@@ -21,6 +22,7 @@ export default function Posts({ content }) {
             <div className='flex flex-col'>
             <Actions docId={content.docId} totalLikes={content.likes.length} likedPhoto={content.userLikedPhoto} handleFocus={handleFocus} pin={content.pin}/>
             <Footer caption = {content.caption} username={content.username}/>
+            <Comments docId={content.docId} comments={content.comments} posted={content.dateCreated} commentInput={commentsInput}/>
             </div>
         </div>
     )

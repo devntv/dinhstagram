@@ -33,7 +33,13 @@ export async function getSuggestedProfiles(userId, following) {
 	  .filter((profile) => profile.userId !== userId && !following.includes(profile.userId));
   }
   
-
+export async function getAllUserProfiles(){
+	const result = await firebase.firestore().collection('users').get();
+	const allUsers = result.docs.map((user)=>({
+		...user.data()
+	}))
+	return allUsers
+}
 // updateFollowedUserFollwers, updateLoggedInUserFollowing
 export async function updateLoggedInUserFollowing(loggedInUserDocId, profileId, isFollowingProfile) {
 	// loggedInUserDocId : current logged in user document id (logged : ntvinh profile)

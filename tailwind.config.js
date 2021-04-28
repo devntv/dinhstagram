@@ -42,6 +42,9 @@ module.exports = {
 
 	
 		extend: {
+			fontSize: {
+				'sxs':'.665rem'
+			},
 			keyframes: {
 				mobileScreen: {
 					'0%, 100%': {

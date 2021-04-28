@@ -5323,6 +5323,10 @@ video {
   line-height: 1;
 }
 
+.text-sxs {
+  font-size: .665rem;
+}
+
 .leading-3 {
   line-height: .75rem;
 }
@@ -23763,6 +23767,10 @@ video {
     line-height: 1;
   }
 
+  .sm\:text-sxs {
+    font-size: .665rem;
+  }
+
   .sm\:leading-3 {
     line-height: .75rem;
   }
@@ -42088,6 +42096,10 @@ video {
   .md\:text-9xl {
     font-size: 8rem;
     line-height: 1;
+  }
+
+  .md\:text-sxs {
+    font-size: .665rem;
   }
 
   .md\:leading-3 {
@@ -60417,6 +60429,10 @@ video {
     line-height: 1;
   }
 
+  .lg\:text-sxs {
+    font-size: .665rem;
+  }
+
   .lg\:leading-3 {
     line-height: .75rem;
   }
@@ -78744,6 +78760,10 @@ video {
     line-height: 1;
   }
 
+  .xl\:text-sxs {
+    font-size: .665rem;
+  }
+
   .xl\:leading-3 {
     line-height: .75rem;
   }
@@ -97069,6 +97089,10 @@ video {
   .\32xl\:text-9xl {
     font-size: 8rem;
     line-height: 1;
+  }
+
+  .\32xl\:text-sxs {
+    font-size: .665rem;
   }
 
   .\32xl\:leading-3 {

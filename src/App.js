@@ -3,6 +3,7 @@
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable no-unused-vars */
 import React, { lazy, Suspense } from 'react'
+import './app.css'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import * as ROUTES from './contants/routes'

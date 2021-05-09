@@ -18,7 +18,7 @@ export default function Timeline() {
                      <Skeleton count={3} width='100%' height={550} className='mb-4'/>
                 </>
             ): photos?.length > 0 ? (
-                photos?.map((content) => <Posts key={content.docId} content ={content} />)
+                photos?.map((content) => <Posts  key={content.docId} content ={content} />)
             ):(
                 <p className='text-center text-xl mt-16'>Hãy theo dõi bạn bè để xem những cập nhật mới.</p>
             )}

@@ -29,7 +29,8 @@ module.exports = {
 				primary: '#dbdbdb',
 				graybold: '#8c8c8c',
 				graysemibold: '#c7c7c7',
-				graysuggeseted: '#8e8e8e'
+				graysuggeseted: '#8e8e8e',
+				grayLight: '#f1f1f1'
 			},
 			red: {
 				primary: '#ed4956',
@@ -105,6 +106,41 @@ module.exports = {
 						opacity: '1',
 						transform: 'scale(1)'
 					}
+				},
+				pulseText : {
+					'0%' : {
+						opacity: '.4',
+					},
+					'50%' : {
+						opacity: '.6',
+					},
+					'80%': {
+						opacity: '.8',
+					},
+					'100%' : {
+						opacity: '1',
+					}
+				},
+				fadedComment: {
+					'0%': {
+						transform: 'scale(1.1)',
+						opacity: '0'
+					},
+					'65%': {			
+						opacity: '.5'
+					},
+					'80%': {
+						opacity: '.8'
+					},
+					'100%': {
+						opacity: '1'
+					}
+				},
+				scaleDeg: {
+					'100%': {
+						transform: 'rotate(180deg)',
+						transition: 'transform linear'
+					}
 				}
 			
 			},
@@ -115,7 +151,10 @@ module.exports = {
 				mobileScreen: 'mobileScreen 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
 				scaletext: 'scaletext 0.5s cubic-bezier(1, 1, 0.2, 1)',
 				iconClickPost: 'postIconClickLike .3s ease-in-out',
-				postIconClickUnLike: 'postIconClickUnLike .3s ease-in-out'
+				postIconClickUnLike: 'postIconClickUnLike .3s ease-in-out',
+				pulseText: 'pulseText 1s cubic-bezier(0.4, 0, 0.6, 1)',
+				fadedComment: 'fadedComment ease-in-out .3s',
+				scaleDeg: 'scaleDeg 1s linear'
 			},
 			maxWidth:{
 				maxwidth350: '380px',

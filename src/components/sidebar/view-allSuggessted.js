@@ -19,16 +19,16 @@ const override = css`
   width: 100%;
   position: fixed;
   left: 0;
-  margin-top: -110px;
+  margin-top: -109px;
   z-index: 999;
-  height: 5px;
+  height: 6px;
 }
 `;
 
 
 export default function ViewAllSuggested() {
     const { user } = useUser()
-    const {docId, username, fullName, userId, following} = user
+    const {docId, userId, following} = user
     const [profiles, setProfiles] = useState(null)
     const [loadView, setLoadView] = useState(false)
 
@@ -46,12 +46,15 @@ export default function ViewAllSuggested() {
 		
 	}, [userId])
 
-    useEffect(()=>{
-      profiles === null ? setLoadView(true) : setLoadView(false)
-    }, [profiles])
+    // useEffect(()=>{
+    //  const profilesActive = profiles === null  ? setLoadView(true) : setLoadView(false)
+
+    //   return () => profilesActive
+    // }, [profiles])
     
 
-  
+    // console.log(profiles?.verification);
+//   console.log(user.username);
 
     return (
         <div className='bg-gray-background h-screen'>
@@ -59,7 +62,8 @@ export default function ViewAllSuggested() {
             <div className='flex flex-col justify-center max-w-lg relative mt-20 mx-auto bg'>
                 
                     <div className='flex relative justify-start mb-2 ml-2'>
-                        <h4 className='font-semibold text-gray-base text-sm'>Gợi ý</h4>
+                        {/* <h4 className='font-semibold text-gray-base text-sm'>{user.username !== undefined && 'Gợi ý'}</h4>  */}
+                        {user.username !== undefined ? <h4 className='font-semibold text-gray-base text-sm'>Gợi ý</h4>:''}
                     </div>
 
                     <div className='bg-white w-full h-auto overflow-hidden relative '>

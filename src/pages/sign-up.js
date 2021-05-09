@@ -106,7 +106,7 @@ export default function login() {
 
     return (
         <>
-            <div className="container flex mx-auto px-3 max-w-screen-md justify-center items-center h-screen">
+            <div className="container flex mx-auto px-3 max-w-screen-md justify-center items-center h-full mt-9">
 
                 <div className="flex flex-col  max-w-maxwidth350 ">
                     <div className="flex flex-col items-center bg-white p-4 mb-2 border border-gray-primary ">

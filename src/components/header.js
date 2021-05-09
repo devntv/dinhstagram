@@ -110,7 +110,7 @@ export default function header() {
  
 
     return (
-        <header className='h-14 border-b border-gray-primary mb-7 fixed top-0 w-full bg-white z-50 ' role="presentation" >
+        <header className='h-14 border-b border-gray-primary fixed top-0 w-full bg-white z-50 ' role="presentation" >
             <div className='container mx-auto h-full max-w-screen-lg '>
                 <div className='flex h-full justify-between '>
                     <div className='text-center items-center flex cursor-pointer text-bg-gray-700 '>

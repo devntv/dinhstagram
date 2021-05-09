@@ -54,7 +54,7 @@ export default function SuggestedProfile({ profileDocId, username, verification,
                         <Link to={`/profile/${username}`}  className='font-medium text-sm text-black-dowload hover-b'>{username}</Link> 
                         {verification === true ? <span className='ml-1 text-sm  text-blue-medium'><GoVerified /></span> : ''}
                     </div>
-                    <p className='text-xs text-gray-graysuggeseted'>{username === 'devntv'  ? 'Admin Vinhstagram': 'Gợi ý cho bạn'}</p>  
+                    <p className='text-xs text-gray-graysuggeseted'>{username === 'devntv' || username === 'NTVinh' ? 'Admin Vinhstagram': username === 'bottest' ? 'System': 'Gợi ý cho bạn'}</p>  
                 </div>
             </div>
             <div>

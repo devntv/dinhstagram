@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable prettier/prettier */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-unused-expressions */
@@ -65,7 +66,10 @@ export default function login() {
         }
     }
     useEffect(() => {
+        let unmounted = false;
         document.title = ' Đăng nhập • Vinhstagram'
+
+        return () => { unmounted = true };
     }, [])
 
     // slide mobile screenShot
@@ -87,7 +91,7 @@ export default function login() {
 
     return (
        <>
-        <div className="container flex mx-auto max-w-screen-md items-center h-screen">
+        <div className="container flex mx-auto max-w-screen-md items-center h-full mt-32">
 
             <div className="flex w-3/4 relative -ml-10 -mr-5 bg-cover h-auto">
                 <img className="max-w-full  animate-mobileScreen" src={randomImage} alt="login phone mobile" />  
@@ -177,8 +181,7 @@ export default function login() {
                             <img className="max-h-11" src="/images/chplay.png" alt="AppStore"/>
                         </a>
                     </div>
-                </div>
-               
+                </div>            
             </div>
         </div>
         {/* footer login */}

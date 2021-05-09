@@ -34,6 +34,7 @@ export default function Suggestions({ userId, following, loggedInUserdocId }) {
 		// console.log('follow', profiles)
 		
 	}, [userId])
+	
 
 	let profilesLength = profiles != null ? profiles.length : null
 	const setProfileLength =  profilesLength > 5 ? profilesLength = 5 : profilesLength

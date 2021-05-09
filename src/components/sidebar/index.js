@@ -11,7 +11,7 @@ export default function Sidebar() {
     const {docId, username, fullName, userId, following} = user
     // console.log('Infor', username, fullName, userId)
     // console.log('following',following);
-    // // console.log(docId);
+    // console.log(user);
    
     return (
         <div className='p-3 mt-0 left-2/3 sticky top-24'>

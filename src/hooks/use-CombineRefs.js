@@ -1,5 +1,7 @@
+/* eslint-disable no-lone-blocks */
 /* eslint-disable no-param-reassign */
 /* eslint-disable prettier/prettier */
+
 import { useEffect, useRef } from 'react'
 
 export default function useCombineRefs(...refs) {
@@ -17,3 +19,5 @@ export default function useCombineRefs(...refs) {
 
     return targetRef
 }
+
+{/* <input  ref= {useCombineRefs(prevRef, prevRef2)}/> */}

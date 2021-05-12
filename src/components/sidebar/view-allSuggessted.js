@@ -59,7 +59,7 @@ export default function ViewAllSuggested() {
     return (
         <div className='bg-gray-background h-screen'>
             <Header />
-            <div className='flex flex-col justify-center max-w-lg relative mt-20 mx-auto bg'>
+            <div className='flex flex-col justify-center max-w-lg relative mt-20 mx-auto'>
                 
                     <div className='flex relative justify-start mb-2 ml-2'>
                         {/* <h4 className='font-semibold text-gray-base text-sm'>{user.username !== undefined && 'Gợi ý'}</h4>  */}

@@ -159,8 +159,8 @@ export default function header() {
                                         <div className='flex items-center cursor-pointer relative ml-3' onClick={clickAvatarProfile} role="presentation">
                                             <div  className={avatarProfileClick ? 'gradient-border' :'border-0'}>
                                                 <img 
-                                                //  src={`/images/avatars/${user.displayName}.jpg`}
-                                                src='/images/avatars/ntvinh.jpg'
+                                                 src={`/images/avatars/${user.displayName}.jpg`}
+                                                // src='/images/avatars/ntvinh.jpg'
                                                 className='h-8 w-8 flex rounded-full border-2 border-transparent border-white bg-cover object-center overflow-hidden' alt={`${user.displayName}profile`}/>
                                             </div>                                 
 

@@ -14,7 +14,7 @@ import { RiArrowDownSLine } from "react-icons/ri";
 import useUser from "../../hooks/user-use";
 import BtnProfileSetting from "./btnProfileSetting";
 import useAuthListener from "../../hooks/use-auth-listener";
-import { isUserFollowingProfile } from "../../services/firebase";
+import { isUserFollowingProfile, toggleFollow } from "../../services/firebase";
 import ModalProfileFollow from "./modalProfileFollow";
 
 export default function Header({
@@ -25,22 +25,31 @@ export default function Header({
     docId: profileDocId,
     userId: profileUserId,
     fullName,
+    followers = [],
     following = [],
     username: profileUsername,
     verification: verifiCheck,
+    bio: bioProfile
   },
 }) {
   const { user } = useUser();
   const loggedUser = useAuthListener();
   const { uid } = loggedUser.user;
-
+  const [openModal, setOpenModal] = useState(false)
   const [isFollowingProfile, setIsFollowingProfile] = useState(false);
   const isUserLogged = profileUserId === uid;
 
   const activeBtnFollowProfile =
     user.username && user.username !== profileUsername;
 
-  const handleToggleFollow = () => 1;
+  const handleToggleFollow = async() => {
+    setIsFollowingProfile((isFollowingProfile) => !isFollowingProfile);
+    setFollowerCount({
+      followerCount: isFollowingProfile ? followerCount - 1 : followerCount+ 1,
+    });
+    setOpenModal(false)
+    await toggleFollow(isFollowingProfile, user.docId, profileDocId, profileUserId, user.userId)
+  };
 
   useEffect(() => {
     const isLoggedInUserFollowingProfile = async () => {
@@ -59,11 +68,10 @@ export default function Header({
   //  console.log(uid);
   const [clickFollowUser, setClickFollowUser] = useState(false);
   const handleUnfollowProfile = (open) => {
-    setClickFollowUser(open);
+    setOpenModal(open);
   };
 
-  // props to cpn ModalProfileFollow
- 
+  
 
   return (
     <>
@@ -77,12 +85,12 @@ export default function Header({
             />
           )}
         </div>
-        <div className="flex items-center justify-center flex-col col-span-2">
+        <div className="flex items-center justify-center flex-col col-span-2 mt-28">
           <div className="container flex items-center -mt-24">
             <p className="text-2xl mr-3 mt-0 font-light">{profileUsername}</p>
 
             {verifiCheck === true ? (
-              <GoVerified className="mr-5 text-blue-medium" />
+              <GoVerified className="mr-2 ml-0 text-blue-medium" />
             ) : (
               ""
             )}
@@ -100,7 +108,7 @@ export default function Header({
 
             {activeBtnFollowProfile && (
               <>
-                <button
+                {/* <button
                   className={`bg-blue-medium font-semibold text-sm w-28 h-7 text-white rounded ml-3 ${
                     isFollowingProfile &&
                     'bg-gray-background w-8 border border-gray-graysemibold text-black-primary'
@@ -109,7 +117,29 @@ export default function Header({
                   onClick={handleToggleFollow}
                 >
                   {isFollowingProfile ? "Nhắn tin" : "Theo dõi"}
-                </button>
+                </button> */}
+                {isFollowingProfile ? (
+                  <button
+                    type="button"
+                    className="bg-gray-background w-20 h-7 font-semibold text-sm rounded border border-gray-graysemibold text-black-primary"
+                   
+                  >
+                    Nhắn tin
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    className="bg-blue-medium font-semibold text-sm w-28 h-7 text-white rounded ml-3"
+                    onClick={handleToggleFollow}
+                    onKeyDown={(e) => {
+                      if(e.key === 'Enter'){
+                        handleToggleFollow()
+                          }}}
+                  >
+                    Theo dõi
+                  </button>
+                )}
+                 
                 {isFollowingProfile && (
                   <button
                     className="flex justify-center items-center w-20 h-7 rounded border border-gray-graysemibold text-black-primary ml-2"
@@ -135,15 +165,39 @@ export default function Header({
               </>
             )}
           </div>
+          <div className='container flex mt-5'>
+                {followers === undefined || following === undefined ? (
+                  <Skeleton count={1} width={678} height={24} />
+                ): (
+                  <>
+                    <p className='mr-10'>
+                      <span><span className='font-semibold'>{photosCount}</span> bài viết</span>
+                    </p>
+                    <p className='mr-10'>
+                      <span><span className='font-semibold'>{followerCount}</span> người theo dõi</span>
+                    </p>
+                    <p className='mr-10'>
+                      <span>Đang theo dõi <span className='font-semibold'>{following.length}</span> người dùng</span>
+                    </p>
+                  </>
+                )}
+          </div>
+          <div className='container flex mt-4 text-black-primary'>
+                <p className='font-semibold'>{!fullName ? <Skeleton count={1} height={24} />: fullName}</p>
+          </div>
+          <div className='container'>
+                <p className='text-md text-black-primary font-normal font-sans'>{!bioProfile ? <Skeleton count={1} height={44} />: bioProfile}</p>
+          </div>
         </div>
       </div>
-      <div className="absolute flex justify-center mx-auto my-0 w-full left-0">
-        {clickFollowUser && (
+      <div className="absolute flex justify-center mx-auto my-0 w-auto left-0">
+        {openModal && (
           <ModalProfileFollow
-            clickFollowUser={clickFollowUser}
+            clickFollowUser={openModal}
             handleUnfollowProfile={handleUnfollowProfile}
             profileUsername={profileUsername}
-            userUsername = {profileUsername}
+            userUsername={profileUsername}
+            handleToggleFollow={handleToggleFollow}
           />
         )}
       </div>
@@ -162,5 +216,7 @@ Header.propTypes = {
     following: PropTypes.array,
     username: PropTypes.string,
     verification: PropTypes.bool,
+    followers: PropTypes.array,
+    bio: PropTypes.string
   }).isRequired,
 };

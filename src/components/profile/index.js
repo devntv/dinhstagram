@@ -34,12 +34,12 @@ export default function Profile({ user }) {
 			getProfileInfoAndPhotos()
 		
 	}, [user.username])
-	// console.log(profile);
+	
 	return (
 		<>
 			<Header photosCount ={photoCollections ? photoCollections.length : 0} profile={profile} followerCount={followerCount} setFollowerCount={dispatch} />
 			<Photos photos={photoCollections} />
-			<p>alo{user.username}</p>
+			{/* <p>{user.username}</p> */}
 		</>
 		)
 }

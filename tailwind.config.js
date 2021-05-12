@@ -7,7 +7,8 @@ module.exports = {
 	theme: {
 		fill: (theme) => ({
 			red: theme('colors.red.primary'),
-			black: theme('colors.black.faded')
+			black: theme('colors.black.faded'),
+			
 		}),
 		colors: {
 			white: '#fff',
@@ -141,7 +142,20 @@ module.exports = {
 						transform: 'rotate(180deg)',
 						transition: 'transform linear'
 					}
-				}
+				},
+				modalFollowProfile : {
+					'0%': {
+						opacity: '0.6',
+						transform: 'scale(1.2)',
+					},
+					
+					
+				
+					'100%': {
+						opacity: '1',
+						transform: 'scale(1)'
+					}
+				},
 			
 			},
 			inset: {
@@ -154,7 +168,8 @@ module.exports = {
 				postIconClickUnLike: 'postIconClickUnLike .3s ease-in-out',
 				pulseText: 'pulseText 1s cubic-bezier(0.4, 0, 0.6, 1)',
 				fadedComment: 'fadedComment ease-in-out .3s',
-				scaleDeg: 'scaleDeg 1s linear'
+				scaleDeg: 'scaleDeg 1s linear',
+				modalFollowProfile: 'modalFollowProfile .1s ease-out'
 			},
 			maxWidth:{
 				maxwidth350: '380px',
@@ -169,4 +184,7 @@ module.exports = {
 			
 		},
 	},
+	variants: {
+		display: ['group-hover']
+	}
 }

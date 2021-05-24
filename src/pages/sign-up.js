@@ -44,7 +44,8 @@ export default function login() {
 // sign -up and check user is already exist
     const handleSignUp = async (event) => {
         event.preventDefault();
-        setLoadingBtn(true);
+        setLoadingBtn(true)
+        const randomAvatar = Math.trunc(Math.random() * 14) +1;
         const usernameExist = await doesUsernameExist(userName);
        
         if(!usernameExist.length){
@@ -64,10 +65,10 @@ export default function login() {
                     username: userName.toLowerCase(),
                     fullName,
                     emailAddress: emailAddress.toLowerCase(),
-                    following: [],
+                    following: ['2'],
                     followers: [],
-                    dateCreated: Date.now()
-
+                    dateCreated: Date.now(),
+                    avatarSignUp:`/images/avatars/${randomAvatar}.jpg` ,
                 });
                 setLoadingBtn(false);
                 alert.success(<div style={{textTransform:'none'}}>

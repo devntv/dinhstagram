@@ -14,7 +14,7 @@ import OutsideClickHandler from 'react-outside-click-handler';
 import { FiLogOut, FiSend } from 'react-icons/fi'
 import { CgProfile } from 'react-icons/cg'
 import { MdCancel } from 'react-icons/md'
-import { IoMdHeartEmpty, IoMdHeart, IoIosSearch, IoIosSend, IoIosHeartEmpty} from 'react-icons/io'
+import { IoMdHeartEmpty, IoMdHeart, IoIosSearch, IoIosSend} from 'react-icons/io'
 import { VscHeart } from 'react-icons/vsc'
 import { FaCompass  } from 'react-icons/fa'
 import { ImCompass2 } from 'react-icons/im'
@@ -23,12 +23,14 @@ import FirebaseContext from '../context/firebase'
 import UserContext from '../context/user'
 import * as ROUTES from '../contants/routes'
 import  '../CSS-style/header.css'
+import useUser from '../hooks/user-use';
 
 
 
 export default function header() {   
+    const { user: loggedInUser } = useContext(UserContext)
+    const { user } = useUser(loggedInUser?.uid)
     const { firebase } = useContext(FirebaseContext)
-    const { user } = useContext(UserContext)
     const history = useHistory();
     // console.log(user);
     // when logOut will be call it
@@ -48,7 +50,7 @@ export default function header() {
     const headerLogoClick = () =>{
         setLogoClick(!logoClick)
     }
-  
+   
     // const headerLogoClickKeyDown =()=>{
     //     setLogoClick(!logoClick)
     //     setTimeout(()=>{
@@ -100,13 +102,13 @@ export default function header() {
     useEffect(()=>{
       const timeoutClear =  setTimeout(()=>{
             setLodingLogout(false)
-        },4000)
+        },1800)
 
         return () => clearTimeout(timeoutClear)
-    },[])
+    },[user?.username])
 
 
-
+    
  
 
     return (
@@ -138,7 +140,7 @@ export default function header() {
                     }
                     </div>
                    <div className='text-center flex items-center'>
-                       {user ? (<> 
+                       {user?.username ? (<> 
                                     <Link to ={ROUTES.DASHBOARD} onClick={clickIconHome}>
                                         {iconHome ? <BsHouseDoor className='h-6 w-7 text-2xl text-black-primary'/> : <BsHouseDoorFill className='h-6 w-7 text-black-light text-2xl'/>}
                                     </Link>
@@ -159,14 +161,15 @@ export default function header() {
                                         <div className='flex items-center cursor-pointer relative ml-3' onClick={clickAvatarProfile} role="presentation">
                                             <div  className={avatarProfileClick ? 'gradient-border' :'border-0'}>
                                                 <img 
-                                                 src={`/images/avatars/${user.displayName}.jpg`}
+                                                //  src={`/images/avatars/${user?.username}.jpg`}:
+                                                src={user?.avatarSignUp === undefined ? `/images/avatars/${user?.username}.jpg` : user?.avatarSignUp}
                                                 // src='/images/avatars/ntvinh.jpg'
-                                                className='h-8 w-8 flex rounded-full border-2 border-transparent border-white bg-cover object-center overflow-hidden' alt={`${user.displayName}profile`}/>
+                                                className='h-9 w-9 flex object-cover rounded-full border-2 border-transparent border-white bg-cover object-center overflow-hidden' alt={`${user?.username} profile`}/>
                                             </div>                                 
 
                                             {avatarProfileClick ?                                                
                                                     <div className='absolute -left-32 border rounded-md h-auto w-44 bg-white border-gray-primary afterHeaderProfile flex flex-col'>
-                                                        <Link to={`/profile/${user?.displayName}`} className='mt-1 flex items-center h-8 justify-start text-gray-base hover:bg-gray-background'>
+                                                        <Link to={`/profile/${user?.username}`} className='mt-1 flex items-center h-8 justify-start text-gray-base hover:bg-gray-background'>
                                                             <CgProfile className='mr-3 ml-3 flex text-lg'/> 
                                                             <p>trang cá nhân</p>
                                                         </Link>

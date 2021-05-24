@@ -7,9 +7,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { FiCamera } from "react-icons/fi";
+import { Link } from 'react-router-dom'
 import { BsFillChatFill, BsArrowRight } from "react-icons/bs";
 import { Skeleton } from "react-loading-skeleton";
-import Footer from "../../pages/footer";
+import * as ROUTES from '../../contants/routes'
 
 export default function Photos({ photos }) {
   return (
@@ -78,16 +79,16 @@ export default function Photos({ photos }) {
                 <span className="border w-8 mr-1 mt-1 text-gray-primary ml-1"></span>
               </div>
               <div className="mt-3 flex items-center cursor-pointer">
-                <p className="text-blue-light text-sm">
+                <Link to={ROUTES.VIEW_ALLSUGGESTION} className="text-blue-light text-sm">
                   Xem tất cả gợi ý dành cho bạn
-                </p>
+                </Link>
                 <BsArrowRight className="ml-2 mt-1 text-blue-medium text-md" />
               </div>
             </>
           ))}
 
         <div className="text-sm text-gray-graysuggeseted h-28 flex items-center justify-center w-auto overflow-hidden relative mb-auto mt-8">
-          Made with 🐤 by Devntv ● @2021 Vinhstagram all rights reserved.
+          Made with 🐤 by NTVinh ● @2021 Vinhstagram all rights reserved.
         </div>
       </div>
     </>

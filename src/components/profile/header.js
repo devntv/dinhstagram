@@ -4,7 +4,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable prettier/prettier */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import Skeleton from "react-loading-skeleton";
 import { FaUserCheck } from "react-icons/fa";
@@ -15,6 +15,7 @@ import useUser from "../../hooks/user-use";
 import BtnProfileSetting from "./btnProfileSetting";
 import useAuthListener from "../../hooks/use-auth-listener";
 import { isUserFollowingProfile, toggleFollow } from "../../services/firebase";
+import UserContext from '../../context/user'
 import ModalProfileFollow from "./modalProfileFollow";
 
 export default function Header({
@@ -25,22 +26,25 @@ export default function Header({
     docId: profileDocId,
     userId: profileUserId,
     fullName,
-    followers = [],
-    following = [],
+    followers,
+    following,
     username: profileUsername,
     verification: verifiCheck,
     bio: bioProfile
   },
 }) {
-  const { user } = useUser();
+  const { user: loggedInUser } = useContext(UserContext)
+  // console.log(loggedInUser);
+  const { user } = useUser(loggedInUser?.uid);
   const loggedUser = useAuthListener();
-  const { uid } = loggedUser.user;
+
+  // const { uid } = loggedUser.user;
   const [openModal, setOpenModal] = useState(false)
   const [isFollowingProfile, setIsFollowingProfile] = useState(false);
-  const isUserLogged = profileUserId === uid;
+  // const isUserLogged = profileUserId === uid;
 
   const activeBtnFollowProfile =
-    user.username && user.username !== profileUsername;
+    user?.username && user.username !== profileUsername;
 
   const handleToggleFollow = async() => {
     setIsFollowingProfile((isFollowingProfile) => !isFollowingProfile);
@@ -63,7 +67,7 @@ export default function Header({
     if (user?.username && profileUserId) {
       isLoggedInUserFollowingProfile();
     }
-  }, [user?.username, profileUserId, uid]);
+  }, [user?.username, profileUserId]);
   //  console.log(user.userId);
   //  console.log(uid);
   const [clickFollowUser, setClickFollowUser] = useState(false);
@@ -71,18 +75,26 @@ export default function Header({
     setOpenModal(open);
   };
 
-  
+  console.log(profileUsername);
+  console.log(user?.username);
 
   return (
     <>
       <div className="grid grid-cols-3 gap-4 justify-between mx-auto max-w-screen-lg relative">
-        <div className="container flex justify-center">
-          {user?.username && (
+        <div className="container flex justify-cente items-center">
+          {profileUsername ? (
             <img
               className="rounded-full h-36 w-36 flex"
               alt={`${user?.username}profile`}
-              src={`/images/avatars/${profileUsername}.jpg`}
+              // src={`/images/avatars/${profileUsername}.jpg`}
+              src ={profileUsername === user?.username ? user?.avatarSignUp : `/images/avatars/${profileUsername}.jpg`}
             />
+          ): (
+            <img
+            className="rounded-full h-36 w-36 flex"
+            alt='vinhstagram-avtar'
+            src='/images/avatars/yasuo.jpg'
+          />
           )}
         </div>
         <div className="flex items-center justify-center flex-col col-span-2 mt-28">
@@ -94,7 +106,7 @@ export default function Header({
             ) : (
               ""
             )}
-            {isUserLogged && (
+            {/* {isUserLogged ? (
               <div className="flex items-center justify-center">
                 <button
                   type="button"
@@ -104,7 +116,7 @@ export default function Header({
                 </button>
                 <BtnProfileSetting />
               </div>
-            )}
+            ):''} */}
 
             {activeBtnFollowProfile && (
               <>
@@ -166,7 +178,7 @@ export default function Header({
             )}
           </div>
           <div className='container flex mt-5'>
-                {followers === undefined || following === undefined ? (
+                {!followers  || !following  ? (
                   <Skeleton count={1} width={678} height={24} />
                 ): (
                   <>
@@ -186,7 +198,7 @@ export default function Header({
                 <p className='font-semibold'>{!fullName ? <Skeleton count={1} height={24} />: fullName}</p>
           </div>
           <div className='container'>
-                <p className='text-md text-black-primary font-normal font-sans'>{!bioProfile ? <Skeleton count={1} height={44} />: bioProfile}</p>
+                <p className='text-md text-black-primary font-normal font-sans'>{!bioProfile ? '': bioProfile}</p>
           </div>
         </div>
       </div>

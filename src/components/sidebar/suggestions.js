@@ -42,7 +42,7 @@ export default function Suggestions({ userId, following, loggedInUserdocId }) {
 	
 	
 
-	// console.log(profiles);
+	console.log(profiles);
 	return !profiles ? (
 		<Skeleton  count={3} height={120} className='mt-5' />	
 	) : profiles ? (
@@ -61,6 +61,7 @@ export default function Suggestions({ userId, following, loggedInUserdocId }) {
 						profileId={profile.userId}
 						userId={userId}
 						loggedInUserdocId={loggedInUserdocId}
+						avatarSignUp = {profile.avatarSignUp}
 					/>
 				))}
 			</div>

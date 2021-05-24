@@ -16,7 +16,7 @@ const override = css`
     margin-right: 0 auto; 
 `;
 
-export default function ViewAllSuggestedFollow({ profileDocId, username, verification, profileId, loggedInUserdocId, userId }) {
+export default function ViewAllSuggestedFollow({ profileDocId, username, verification, profileId, loggedInUserdocId, userId, avatarSignUp }) {
 //    console.log(verification);
     const [followed, setFollowed] = useState(false)
     const [loadFollowed, setLoadFollowed] = useState(false)
@@ -39,13 +39,13 @@ export default function ViewAllSuggestedFollow({ profileDocId, username, verific
         setFollowed(false)
         setLoadUnfollow(false)
     }
-
+    
 	return (
         <div className='pt-2 pl-3 pb-3 rounded-md justify-between' >
             <div className='flex items-center justify-between'>
                 <div className='flex' >
                     <Link to={`/profile/${username}`}>
-                        <img  className='rounded-full w-9 flex mr-3 cursor-pointer' src={`images/avatars/${username}.jpg`} alt=''/>
+                        <img  className='rounded-full w-9 flex mr-3 cursor-pointer text-sm' src={avatarSignUp || `images/avatars/${username}.jpg`} alt={`${username}`}/>
                     </Link>
                 
                     <div className='flex flex-col'>
@@ -85,5 +85,6 @@ ViewAllSuggestedFollow.propTypes ={
     loggedInUserdocId: PropTypes.string.isRequired,
     profileDocId: PropTypes.string.isRequired,
     userId: PropTypes.string.isRequired,
-    verification: PropTypes.bool.isRequired
+    verification: PropTypes.bool.isRequired,
+    avatarSignUp: PropTypes.string.isRequired
 }

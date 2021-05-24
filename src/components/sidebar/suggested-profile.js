@@ -18,7 +18,7 @@ const override = css`
 display: flex;
 margin-right: 6px; 
 `;
-export default function SuggestedProfile({ profileDocId, username, verification, profileId, userId, loggedInUserdocId}) {
+export default function SuggestedProfile({ profileDocId, username, verification, profileId, userId, loggedInUserdocId, avatarSignUp}) {
     const [followed, setFollowed] = useState(false)
     const [loadFollowed, setLoadFollowed] = useState(false)
     const [loadUnfollow, setLoadUnfollow] = useState(false)
@@ -41,12 +41,13 @@ export default function SuggestedProfile({ profileDocId, username, verification,
     }
 
     
-  //  console.log(profileId);
+//    console.log(avatarSignUp);
+  
 	return  (
         <div className='flex flex-row items-center justify-between'>
             <div className='flex items-center justify-between -mb-2'>
                 <Link to={`/profile/${username}`}>
-                    <img  className='rounded-full w-9 flex mr-3 cursor-pointer' src={`images/avatars/${username}.jpg`} alt={`${username}avatar`}/>
+                    <img  className='rounded-full w-9 flex mr-3 cursor-pointer' src={avatarSignUp || `images/avatars/${username}.jpg`} alt={`${username}`}/>
                 </Link>
                     
                 <div className='flex flex-col'>
@@ -76,5 +77,6 @@ SuggestedProfile.propTypes = {
     profileId: PropTypes.string.isRequired,
     userId: PropTypes.string.isRequired,
     loggedInUserdocId: PropTypes.string.isRequired,
-    verification: PropTypes.bool.isRequired
+    verification: PropTypes.bool.isRequired,
+    avatarSignUp: PropTypes.string.isRequired
 }

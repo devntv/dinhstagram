@@ -6,12 +6,17 @@ import { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { Link, useHistory } from 'react-router-dom'
 import Skeleton from 'react-loading-skeleton'
+import useUser from '../../hooks/user-use'
+import UserContext from '../../context/user'
 import FirebaseContext from '../../context/firebase'
 import * as ROUTES from '../../contants/routes'
 
 export default function User({ username, fullName }) {
+	const { user: loggedInUser } = useContext(UserContext)
+	const { user } = useUser(loggedInUser?.uid)
 	const { firebase } = useContext(FirebaseContext)
 	const history = useHistory()
+
 	return !username || !fullName ? (
 		<Skeleton count={1} height={61} />
 	) : (
@@ -24,7 +29,13 @@ export default function User({ username, fullName }) {
 					<img
 						draggable='false'
 						className='rounded-full w-12 select-none mr-3 flex '
-						src={`/images/avatars/${username}.jpg`}
+						// src={`/images/avatars/${username}.jpg`}
+						src={
+							user?.avatarSignUp === undefined
+								? `/images/avatars/${username}.jpg`
+								: user?.avatarSignUp
+						}
+						// src={user?.avatarSignUp === undefined ? `/images/avatars/${user?.username}.jpg` : user?.avatarSignUp}
 						// src='/images/avatars/avatar1.jpg'
 						alt=''
 					/>

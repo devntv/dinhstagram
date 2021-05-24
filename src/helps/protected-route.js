@@ -6,6 +6,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable no-unused-vars */
 import PropTypes from 'prop-types'
+import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
 import * as ROUTES from '../contants/routes'
 
@@ -15,7 +16,7 @@ export default function ProtectedRoute({ children, user, ...rest }) {
 			{...rest}
 			render={({ location }) => {
 				if (user) {
-					return children
+					return React.cloneElement(children, { user })
 				}
 				if (!user) {
 					return (

@@ -14,7 +14,7 @@ export default function Footer() {
 					<div className='text-sm text-red-light font-semibold'>Vinh Dz</div>
 				</div>
 				<div className='text-gray-graybold text-sm  '>
-					Made with 🐤 by Devntv ● @2021 Vinhstagram all rights reserved.
+					Made with 🐤 by NTVinh ● @2021 Vinhstagram all rights reserved.
 				</div>
 			</div>
 		</div>

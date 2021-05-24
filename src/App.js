@@ -31,14 +31,16 @@ export default function App() {
 				</div>}
 			>
 			<Switch>
-				<IsUserLoggedIn user={user} loggedInPath={ROUTES.DASHBOARD} path={ROUTES.LOGIN}>
+				{/* <IsUserLoggedIn user={user} loggedInPath={ROUTES.DASHBOARD} path={ROUTES.LOGIN}> */}
 					{/* <Route path={ROUTES.LOGIN} component={Login}  /> */}
-					<Login />
-				</IsUserLoggedIn>
-				<IsUserLoggedIn user={user} loggedInPath={ROUTES.DASHBOARD} path={ROUTES.SIGN_UP}>
+					{/* <Login /> */}
+				{/* </IsUserLoggedIn> */}
+				{/* <IsUserLoggedIn user={user} loggedInPath={ROUTES.DASHBOARD} path={ROUTES.SIGN_UP}> */}
 					{/* <Route path={ROUTES.SIGN_UP} component={SignUp} /> */}
-					<SignUp />
-				</IsUserLoggedIn>
+					{/* <SignUp /> */}
+				{/* </IsUserLoggedIn> */}
+				<Route path={ROUTES.LOGIN} component={Login} />
+				<Route path={ROUTES.SIGN_UP} component={SignUp} />
 				<Route path={ROUTES.PROFILE} component={Proifile} />
 				<ProtectedRoute user={user} path={ROUTES.DASHBOARD} exact>
 					{/* <Route path={ROUTES.DASHBOARD} component={Dashboard} exact/> */}

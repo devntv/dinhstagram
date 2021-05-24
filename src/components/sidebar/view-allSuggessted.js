@@ -8,7 +8,7 @@
 import { useState, useEffect } from 'react'
 import BarLoader from "react-spinners/BarLoader"
 import { css } from "@emotion/core";
-import useUser from '../../hooks/user-use'
+import useUserAllFollow from '../../hooks/use-ALL-userFollow'
 import { getSuggestedProfiles } from '../../services/firebase'
 import Header from "../header"
 import ViewAllSuggestedFollow from './view-allFollow'
@@ -27,7 +27,7 @@ const override = css`
 
 
 export default function ViewAllSuggested() {
-    const { user } = useUser()
+    const { user } = useUserAllFollow()
     const {docId, userId, following} = user
     const [profiles, setProfiles] = useState(null)
     const [loadView, setLoadView] = useState(false)
@@ -37,15 +37,14 @@ export default function ViewAllSuggested() {
             setLoadView(true)
 			const response = await getSuggestedProfiles(userId, following)
 			setProfiles(response)
-            setLoadView(false)
-            
+            setLoadView(false)            
 		}	
 		if (userId) {
 			suggestedProfiles()
 		}
 		
 	}, [userId])
-
+    // console.log(profiles);
     // useEffect(()=>{
     //  const profilesActive = profiles === null  ? setLoadView(true) : setLoadView(false)
 
@@ -76,6 +75,7 @@ export default function ViewAllSuggested() {
                                     loggedInUserdocId ={docId}
                                     profileId={profile.userId}
                                     userId ={userId}
+                                    avatarSignUp = {profile.avatarSignUp}
                             />
                         ))}
                     </div>

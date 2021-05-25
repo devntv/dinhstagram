@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-shadow */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/forbid-prop-types */
@@ -30,7 +31,8 @@ export default function Header({
     following,
     username: profileUsername,
     verification: verifiCheck,
-    bio: bioProfile
+    bio: bioProfile,
+    avatarSignUp
   },
 }) {
   const { user: loggedInUser } = useContext(UserContext)
@@ -38,11 +40,13 @@ export default function Header({
   const { user } = useUser(loggedInUser?.uid);
   const loggedUser = useAuthListener();
 
-  // const { uid } = loggedUser.user;
+  const { uid } = loggedUser.user;
   const [openModal, setOpenModal] = useState(false)
   const [isFollowingProfile, setIsFollowingProfile] = useState(false);
-  // const isUserLogged = profileUserId === uid;
-
+  // check manager profile setting
+  const isUserLogged = profileUserId === uid;
+// console.log(profileUserId);
+// console.log(uid);
   const activeBtnFollowProfile =
     user?.username && user.username !== profileUsername;
 
@@ -68,16 +72,15 @@ export default function Header({
       isLoggedInUserFollowingProfile();
     }
   }, [user?.username, profileUserId]);
-  //  console.log(user.userId);
-  //  console.log(uid);
+  
   const [clickFollowUser, setClickFollowUser] = useState(false);
   const handleUnfollowProfile = (open) => {
     setOpenModal(open);
   };
 
-  console.log(profileUsername);
-  console.log(user?.username);
-
+  // console.log(profileUsername);
+  // console.log(user?.username);
+  // console.log(avatarSignUp);
   return (
     <>
       <div className="grid grid-cols-3 gap-4 justify-between mx-auto max-w-screen-lg relative">
@@ -86,8 +89,8 @@ export default function Header({
             <img
               className="rounded-full h-36 w-36 flex"
               alt={`${user?.username}profile`}
-              // src={`/images/avatars/${profileUsername}.jpg`}
-              src ={profileUsername === user?.username ? user?.avatarSignUp : `/images/avatars/${profileUsername}.jpg`}
+              // src={`/images/avatars/${profileUsername}.jpg`}             
+              src={avatarSignUp || `/images/avatars/${profileUsername}.jpg`}
             />
           ): (
             <img
@@ -106,7 +109,7 @@ export default function Header({
             ) : (
               ""
             )}
-            {/* {isUserLogged ? (
+            {isUserLogged ? (
               <div className="flex items-center justify-center">
                 <button
                   type="button"
@@ -116,7 +119,7 @@ export default function Header({
                 </button>
                 <BtnProfileSetting />
               </div>
-            ):''} */}
+            ):''}
 
             {activeBtnFollowProfile && (
               <>
@@ -210,6 +213,7 @@ export default function Header({
             profileUsername={profileUsername}
             userUsername={profileUsername}
             handleToggleFollow={handleToggleFollow}
+            avatarSignUp={avatarSignUp}
           />
         )}
       </div>
@@ -229,6 +233,7 @@ Header.propTypes = {
     username: PropTypes.string,
     verification: PropTypes.bool,
     followers: PropTypes.array,
-    bio: PropTypes.string
+    bio: PropTypes.string,
+    avatarSignUp: PropTypes.string
   }).isRequired,
 };

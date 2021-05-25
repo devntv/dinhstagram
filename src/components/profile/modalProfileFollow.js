@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop:'20px',
   },
 }));
-export default function ModalProfileFollow({clickFollowUser, handleUnfollowProfile, profileUsername, userUsername, handleToggleFollow}) {
+export default function ModalProfileFollow({clickFollowUser, handleUnfollowProfile, profileUsername, userUsername, handleToggleFollow, avatarSignUp}) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(clickFollowUser);
 
@@ -64,7 +64,7 @@ export default function ModalProfileFollow({clickFollowUser, handleUnfollowProfi
         <Fade in={open} >
           <div className={classes.paper}>
             <div id="transition-modal-title" className='flex items-center justify-center mt-4 w-full'>
-              <img   src={`/images/avatars/${profileUsername}.jpg`} alt={`${profileUsername}profile`} className='rounded-full h-24 w-24'/>
+              <img   src={avatarSignUp || `/images/avatars/${profileUsername}.jpg`} alt={`${profileUsername}profile`} className='rounded-full h-24 w-24'/>
             </div>
             <p id="transition-modal-description" className='mt-6 text-center w-full px-32 text-sm '>
               {`Bỏ theo dõi @${userUsername}?`}
@@ -86,7 +86,8 @@ ModalProfileFollow.propTypes = {
     handleUnfollowProfile: PropTypes.func.isRequired,
     profileUsername: PropTypes.string.isRequired,
     userUsername: PropTypes.string.isRequired,
-    handleToggleFollow: PropTypes.func.isRequired
+    handleToggleFollow: PropTypes.func.isRequired,
+    avatarSignUp: PropTypes.string.isRequired
 }
 Fade.propTypes = {
     in: PropTypes.object.isRequired,

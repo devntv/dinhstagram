@@ -91,16 +91,16 @@ export default function login() {
 
     return (
        <>
-        <div className="container flex mx-auto max-w-screen-md items-center h-full mt-32">
+        <div className="container flex mx-auto max-w-screen-md items-center h-full mb-12 xs-res2:mt-24 xs-res2:mb-8">
 
-            <div className="flex w-3/4 relative -ml-10 -mr-5 bg-cover h-auto">
-                <img className="max-w-full  animate-mobileScreen" src={randomImage} alt="login phone mobile" />  
+            <div className="relative -ml-10 -mr-5 bg-cover h-auto hidden md-res2:flex">
+                <img className="max-w-full animate-mobileScreen" src={randomImage} alt="login phone mobile" />  
             </div>
 
-            <div className="flex flex-col w-7/12">
-                <div className="flex flex-col items-center  bg-white p-6 mb-2 border border-gray-primary">
-                    <h1 className="flex  justify-center ">
-                        <img className=" mt-4 h-16 w-48 mx-auto mb-4" src='/images/vsgLogo.png' alt="DinhstagramLogo" />
+            <div className="flex flex-col md-res2:w-6/12 my-0 mx-auto max-w-maxwidth350">
+                <div className="flex flex-col items-center p-6 pb-12 border-gray-primary mt-0 xs-res2:border xs-res2:bg-white xs-res2:mb-2 xs-res2:pb-3 ">
+                    <h1 className="justify-center ">
+                        <img className=" mt-4 h-16 w-48 mx-auto mb-4" src='/images/vsgLogo.png' alt="DinhstagramLogo" />                      
                     </h1>
                    
                     <form onSubmit={handleLogin} method="POST" className="relative">
@@ -164,7 +164,7 @@ export default function login() {
                     </div>
                 </div>
                 
-                <div className="flex justify-center items-center flex-col w-full bg-white p-5 border border-gray-primary">
+                <div className="flex justify-center items-center flex-col w-full  border-gray-primary pb-10 xs-res2:bg-white xs-res2:p-5 xs-res2:border">
                     <p className="text-sm">bạn chưa có tài khoản? 
                         <Link to={ROUTES.SIGN_UP} className="font-semibold text-blue-medium ml-1">Đăng ký</Link>
                     </p>

@@ -11,8 +11,16 @@ import { Link } from 'react-router-dom'
 import { BsFillChatFill, BsArrowRight } from "react-icons/bs";
 import { Skeleton } from "react-loading-skeleton";
 import * as ROUTES from '../../contants/routes'
+import UserContext from '../../context/user'
+import useUser from "../../hooks/user-use";
+import useAuthListener from "../../hooks/use-auth-listener";
 
-export default function Photos({ photos }) {
+export default function Photos({ photos, profile:{ userId: profileUserId} }) {
+  const { user: loggedInUser } = React.useContext(UserContext)
+  const { user } = useUser(loggedInUser?.uid);
+  const loggedUser = useAuthListener();
+  const { uid } = loggedUser.user;
+  const isUserLogged = profileUserId === uid;
   return (
     <>
       <div className="border-t border-gray-primary mt-12 pt-4 " />
@@ -70,8 +78,9 @@ export default function Photos({ photos }) {
                   <FiCamera className="w-8 h-8" />
                 </div>
                 <div className="mt-8 text-2xl font-light">
-                  Chưa có bài viết nào.
+                  <p>Chưa có bài viết nào.</p>              
                 </div>
+               {isUserLogged && <p className='text-xs mt-6 text-gray-graybold'>-Tính năng thêm bài viết đang bảo trì-</p>} 
               </div>
               <div className="flex items-center justify-center">
                 <span className="border w-8 mr-1 mt-1 text-gray-primary"></span>
@@ -96,4 +105,7 @@ export default function Photos({ photos }) {
 }
 Photos.propTypes = {
   photos: PropTypes.array.isRequired,
+  profile: PropTypes.shape({
+    userId: PropTypes.string,
+  }).isRequired
 };

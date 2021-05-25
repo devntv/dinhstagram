@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 // tailwind.config.js
 module.exports = {
+	purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
 	future: {
 		removeDeprecatedGapUtilities: true,
 	},
@@ -10,6 +11,7 @@ module.exports = {
 			black: theme('colors.black.faded'),
 			
 		}),
+		
 		colors: {
 			white: '#fff',
 			blue: {
@@ -44,6 +46,16 @@ module.exports = {
 
 	
 		extend: {
+			screens:{
+				'xs-res': '420px',
+				'xs-res2': '450px',
+				'sm-res': '640px',
+				'md-res': '768px',
+				'md-res2': '875px',
+				'lg-res': '1024px',
+				'xl-res': '1280px',
+				'2xl-res': '1540px'
+			},
 			fontSize: {
 				'sxs':'.665rem'
 			},
@@ -176,7 +188,8 @@ module.exports = {
 				maxwidth258: '258px',
 			},
 			minWidth:{
-				minwidth215: '230px'
+				minwidth215: '230px',
+				minWidth350: '350px',
 			},
 			width:{
 				'88-percent': '88%'
@@ -185,6 +198,9 @@ module.exports = {
 		},
 	},
 	variants: {
-		display: ['group-hover']
-	}
+		extends:{
+			display: ['group-hover']
+		},	
+	},
+	plugins: [],
 }

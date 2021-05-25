@@ -108,10 +108,10 @@ export default function login() {
 
     return (
         <>
-            <div className="container flex mx-auto px-3 max-w-screen-md justify-center items-center h-full mt-9">
+            <div className="container flex mx-auto px-3 max-w-screen-md justify-center items-center h-full mt-8 xs-res2:mb-2">
 
-                <div className="flex flex-col  max-w-maxwidth350 ">
-                    <div className="flex flex-col items-center bg-white p-4 mb-2 border border-gray-primary ">
+                <div className="flex flex-col max-w-maxwidth350 ">
+                    <div className="flex flex-col items-center p-4 mb-2 border-gray-primary xs-res:border xs-res:bg-white xl:border xl:bg-white">
                         <h1 className="flex justify-center ">
                             <img className="mt-4 h-16 w-48 mx-auto mb-4" src='/images/vsgLogo.png' alt="DinhstagramLogo" />
                         </h1>
@@ -202,7 +202,7 @@ export default function login() {
 
                     </div>
 
-                    <div className="flex justify-center items-center flex-col w-full bg-white p-4 border border-gray-primary">
+                    <div className="flex justify-center items-center flex-col w-full xl:bg-white p-4 xl-res:border border-gray-primary xs-res:border xs-res:bg-white">
                         <p className="text-sm">bạn có tài khoản?
                             <Link to={ROUTES.LOGIN} className="font-semibold text-blue-medium ml-1">Đăng nhập</Link>
                         </p>

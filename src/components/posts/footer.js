@@ -8,12 +8,12 @@ import PropTypes from 'prop-types'
 export default function footer({caption, username}) {
     return (
 
-        <div className='p-4 ml-2 -mt-6 pt-2 pb-0 flex items-center'>
-            <span className='font-semibold text-sm mr-1'>
+        <div className='p-4 ml-2 -mt-6 pt-2 pb-0  items-center break-words leading-3'>
+            <span className='font-semibold text-sm mr-1 -ml-1'>
                 {username}
             </span>
             {username === 'NTVinh' && <span className='text-sm text-blue-medium'><GoVerified /></span>}
-            <span className='text-black-light text-sm font-sans ml-1'> {caption} </span>
+            <span className='text-black-light text-sm font-sans '> {caption} </span>
         </div>
     )
 }

@@ -56,7 +56,7 @@ export default function login() {
 
                 // auth => email and pass and username (display name)
                 await createUserResult.user.updateProfile({
-                    displayName: userName
+                    displayName: userName.toLowerCase()
                 });
 
                 // firebase user collection -> create a document

@@ -19,7 +19,7 @@ export default function Sidebar() {
   } = useContext(LoggedInUserContext);
 
   return (
-    <div className="p-3 mt-0 left-2/3 sticky top-24">
+    <div className="p-3 mt-0 left-2/3 sticky top-24 hidden lg-res:block">
       <User username={username} fullName={fullName} />
       <Suggestions
         userId={userId}

@@ -21,7 +21,7 @@ export default function Posts({ content }) {
     // get all user
 
     return (
-        <div className='rounded-sm border bg-white border-gray-primary mb-14 w-auto'>
+        <div className='rounded-sm sm-res:border sm-res:bg-white sm-res:border-gray-primary mb-14 w-auto'>
             <Header username={content.username}/>
             <Image src={content.imageSrc} caption={content.caption}/>
             <div className='flex flex-col'>

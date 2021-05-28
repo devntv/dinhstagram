@@ -41,7 +41,7 @@ export default function Actions({ docId, totalLikes, likedPhoto, handleFocus, pi
         <>
             <div className='flex p-4 -mt-1'>
                 <div className='flex -mt-2 items-center  w-full justify-between'>
-                    <div className='flex justify-between items-center'>
+                    <div className='flex justify-between items-center -ml-1'>
                       <svg 
                             onClick={handleToggleLiked}
                             onKeyDown={(e) => {
@@ -101,7 +101,7 @@ export default function Actions({ docId, totalLikes, likedPhoto, handleFocus, pi
                 </div>
             </div>
 
-            <div className='p-4 -mt-7 ml-2'>
+            <div className='p-4 -mt-7 ml-1'>
                 <p className='font-semibold text-sm '>{likes === 1 || likes ===0 ? `${likes} lượt thích`: `${likes} lượt thích`}</p>
             </div>  
         </>

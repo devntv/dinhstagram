@@ -47,13 +47,16 @@ module.exports = {
 	
 		extend: {
 			screens:{
+				'minium': '345px',
+				'minium2': '375px',
 				'xs-res': '420px',
 				'xs-res2': '450px',
-				'sm-res': '640px',
+				'sm-res': '620px',
 				'md-res': '768px',
 				'md-res2': '875px',
-				'lg-res': '1024px',
-				'xl-res': '1280px',
+				'lg-res': '1140px',
+				'lg-res2': '1280px',
+				'xl-res': '1350px',
 				'2xl-res': '1540px'
 			},
 			fontSize: {
@@ -190,6 +193,7 @@ module.exports = {
 			minWidth:{
 				minwidth215: '230px',
 				minWidth350: '350px',
+				minWidth420: '540px'
 			},
 			width:{
 				'88-percent': '88%'

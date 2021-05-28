@@ -19,12 +19,13 @@ export async function getUserByUsername(username) {
 		.collection('users')
 		.where('username', '==', username)
 		.get()
+
 	const user = result.docs.map(item => ({
 		...item.data(),
 		docId: item.id
 	})) 
-
-	return user.length > 0 ? user : false 
+	console.log(user);
+	return user.length > 0 ? user : []
 }
 
 // get user from the fireStore database where userId === userId [passed from the auth]

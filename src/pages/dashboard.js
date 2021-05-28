@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable import/no-named-as-default */
 /* eslint-disable react/jsx-filename-extension */
@@ -8,6 +9,7 @@ import Sidebar from '../components/sidebar'
 import Timeline from '../components/timeline'
 import useUser from '../hooks/user-use'
 import LoggedInUserContext from '../context/loggedInUser'
+import HeaderMobile from '../components/responsivemobile/header'
 
 export default function Dashboard({ user: loggedInuser }) {
 	const { user } = useUser(loggedInuser.uid)
@@ -20,12 +22,15 @@ export default function Dashboard({ user: loggedInuser }) {
 		<LoggedInUserContext.Provider value={{ user }}>
 			<div className='bg-gray-background h-screen relative'>
 				<Header />
-				<div className='grid grid-cols-3 gap-4 justify-between mx-auto max-w-screen-lg mt-20 '>
+				<div className=' lg-res:grid lg-res:grid-cols-3 lg-res:gap-4 lg-res:justify-between mx-auto max-w-screen-lg mt-20 flex justify-center container sm-res:min-w-minWidth420'>
 					<Timeline />
 					<div>
 						<Sidebar />
+						<HeaderMobile />
 					</div>
 				</div>
+				{/* reponsive Mobile */}
+				<HeaderMobile />
 			</div>
 		</LoggedInUserContext.Provider>
 	)

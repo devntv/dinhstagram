@@ -113,12 +113,12 @@ export default function header() {
 
     return (
         <header className='h-14 border-b border-gray-primary fixed top-0 w-full bg-white z-50 ' role="presentation" >
-            <div className='container mx-auto h-full max-w-screen-lg '>
+            <div className='container mx-auto h-full max-w-screen-lg'>
                 <div className='flex h-full justify-between '>
                     <div className='text-center items-center flex cursor-pointer text-bg-gray-700 '>
                         <h1 className='flex justify-center w-full '>
                             <Link to ={ROUTES.DASHBOARD} >
-                                <img className= {`bg-cover w-6/12 h-full object-cover ${logoClick ? 'opacity-40': ''} `}
+                                <img className= {`bg-cover ml-4 lg-res:ml-0 w-8/12 md-res:w-8/12 h-full object-cover ${logoClick ? 'opacity-40': ''} `}
                                      src='/images/vsgLogo.png' alt='Vinhstagram-logo'
                                      onMouseDown={headerLogoClick} 
                                      onMouseUp={headerLogoClick}
@@ -126,11 +126,11 @@ export default function header() {
                             </Link>
                         </h1>                      
                     </div>
-                    <div  className='flex items-center text-sm p-0 my-0 relative w-52' role="presentation" onClick={handleSearchToggle}>                      
+                    <div  className='md-res:flex items-center text-sm p-0 my-0 relative w-52 hidden' role="presentation" onClick={handleSearchToggle}>                      
                     {user &&
                         <OutsideClickHandler onOutsideClick={() => {setSearchToggle(false)}}>
                         {/* toggle search input like instagram */}
-                                <div className='flex w-full items-center bg-gray-background border rounded-sm border-gray-primary min-w-minwidth215'>
+                                <div className='md-res:flex w-full items-center bg-gray-background border rounded-sm border-gray-primary min-w-minwidth215 hidden'>
                                     <IoIosSearch className={searchToggle ? 'text-gray-graybold text-base mr-1 ml-1 left-0':'text-gray-graybold text-base mr-1 ml-1 left-16 absolute'}/>
                                     <input ref={inputSearch} value={searchValue} placeholder={searchToggle ? 'tìm kiếm...': ''} className='bg-gray-background focus:outline-none h-7 flex-grow' onChange={({target}) => setSearchValue(target.value)}/>
                                     <span className={searchToggle ? 'hidden': 'text-sm text-gray-graybold absolute left-88px'}>tìm kiếm</span>
@@ -141,6 +141,7 @@ export default function header() {
                     </div>
                    <div className='text-center flex items-center'>
                        {user?.username ? (<> 
+                                <div className='md-res:flex items-center justify-items-center hidden'>
                                     <Link to ={ROUTES.DASHBOARD} onClick={clickIconHome}>
                                         {iconHome ? <BsHouseDoor className='h-6 w-7 text-2xl text-black-primary'/> : <BsHouseDoorFill className='h-6 w-7 text-black-light text-2xl'/>}
                                     </Link>
@@ -156,19 +157,19 @@ export default function header() {
                                     <Link to={ROUTES.DASHBOARD} onClick={clickIconHeart}>
                                         {iconHeart ? <IoMdHeartEmpty className='h-7 w-7 ml-4 text-2xl text-black-primary' /> : <IoMdHeart  className='h-7 w-7 ml-4 text-2xl' />}
                                     </Link>
-                              
+                                    </div>
                                     <OutsideClickHandler onOutsideClick={()=>{setAvatarProfileClick(false);}}>
-                                        <div className='flex items-center cursor-pointer relative ml-3' onClick={clickAvatarProfile} role="presentation">
+                                        <div className='flex items-center cursor-pointer relative md-res:ml-3 mr-3 lg-res:mr-0' onClick={clickAvatarProfile} role="presentation">
                                             <div  className={avatarProfileClick ? 'gradient-border' :'border-0'}>
                                                 <img 
                                                 //  src={`/images/avatars/${user?.username}.jpg`}:
                                                 src={user?.avatarSignUp === undefined ? `/images/avatars/${user?.username}.jpg` : user?.avatarSignUp}
                                                 // src='/images/avatars/ntvinh.jpg'
-                                                className='h-9 w-9 flex object-cover rounded-full border-2 border-transparent border-white bg-cover object-center overflow-hidden' alt={`${user?.username} profile`}/>
+                                                className='h-11 w-11 lg-res:h-9 lg-res:w-9 flex object-cover rounded-full border-2 border-transparent border-white bg-cover object-center overflow-hidden' alt={`${user?.username} profile`}/>
                                             </div>                                 
 
                                             {avatarProfileClick ?                                                
-                                                    <div className='absolute -left-32 border rounded-md h-auto w-44 bg-white border-gray-primary afterHeaderProfile flex flex-col'>
+                                                    <div className='absolute -left-32 border rounded-md h-auto w-44 bg-white border-gray-primary afterHeaderProfile flex flex-col '>
                                                         <Link to={`/profile/${user?.username}`} className='mt-1 flex items-center h-8 justify-start text-gray-base hover:bg-gray-background'>
                                                             <CgProfile className='mr-3 ml-3 flex text-lg'/> 
                                                             <p>trang cá nhân</p>

@@ -5,13 +5,17 @@
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable prettier/prettier */
 /* eslint-disable no-unused-vars */
-import { useState, useEffect } from 'react'
-import BarLoader from "react-spinners/BarLoader"
+import { useState, useEffect } from "react";
+import BarLoader from "react-spinners/BarLoader";
 import { css } from "@emotion/core";
-import useUserAllFollow from '../../hooks/use-ALL-userFollow'
-import { getSuggestedProfiles } from '../../services/firebase'
-import Header from "../header"
-import ViewAllSuggestedFollow from './view-allFollow'
+import { Link } from "react-router-dom";
+import * as ROUTES from "../../contants/routes";
+import useUserAllFollow from "../../hooks/use-ALL-userFollow";
+import { getSuggestedProfiles } from "../../services/firebase";
+import Header from "../header";
+import ViewAllSuggestedFollow from "./view-allFollow";
+import Footer from "../../pages/footer";
+import HeaderMobile from '../responsivemobile/header'
 
 const override = css`
   display: flex;
@@ -25,64 +29,79 @@ const override = css`
 }
 `;
 
-
 export default function ViewAllSuggested() {
-    const { user } = useUserAllFollow()
-    const {docId, userId, following} = user
-    const [profiles, setProfiles] = useState(null)
-    const [loadView, setLoadView] = useState(false)
+  const { user } = useUserAllFollow();
+  const { docId, userId, following } = user;
+  const [profiles, setProfiles] = useState(null);
+  const [loadView, setLoadView] = useState(false);
 
-	useEffect(() => {
-		async function suggestedProfiles() {
-            setLoadView(true)
-			const response = await getSuggestedProfiles(userId, following)
-			setProfiles(response)
-            setLoadView(false)            
-		}	
-		if (userId) {
-			suggestedProfiles()
-		}
-		
-	}, [userId])
-    // console.log(profiles);
-    // useEffect(()=>{
-    //  const profilesActive = profiles === null  ? setLoadView(true) : setLoadView(false)
+  useEffect(() => {
+    async function suggestedProfiles() {
+      setLoadView(true);
+      const response = await getSuggestedProfiles(userId, following);
+      setProfiles(response);
+      setLoadView(false);
+    }
+    if (userId) {
+      suggestedProfiles();
+    }
+  }, [userId]);
+  // console.log(profiles);
+  // useEffect(()=>{
+  //  const profilesActive = profiles === null  ? setLoadView(true) : setLoadView(false)
 
-    //   return () => profilesActive
-    // }, [profiles])
-    
+  //   return () => profilesActive
+  // }, [profiles])
 
-    // console.log(profiles?.verification);
-//   console.log(user.username);
+  // console.log(profiles?.verification);
+  //   console.log(user.username);
 
-    return (
-        <div className='bg-gray-background h-screen'>
-            <Header />
-            <div className='flex flex-col justify-center max-w-lg relative mt-20 mx-auto'>
-                
-                    <div className='flex relative justify-start mb-2 ml-2'>
-                        {/* <h4 className='font-semibold text-gray-base text-sm'>{user.username !== undefined && 'Gợi ý'}</h4>  */}
-                        {user.username !== undefined ? <h4 className='font-semibold text-gray-base text-sm'>Gợi ý</h4>:''}
-                    </div>
+  return (
+    <>
+      <div className="bg-gray-background h-screen">
+        <Header />
+        <div className="flex flex-col justify-center max-w-lg relative mt-20 mx-auto">
+          <div className="flex relative justify-start mb-2 ml-2">
+            {/* <h4 className='font-semibold text-gray-base text-sm'>{user.username !== undefined && 'Gợi ý'}</h4>  */}
+            {user.username !== undefined ? (
+              <h4 className="font-semibold text-gray-base text-sm">Gợi ý</h4>
+            ) : (
+              <div className="mx-auto my-0 flex items-center mt-6 text-center">
+                <div className="text-sm text-gray-base">
+                  <span>Hãy</span>{" "}
+                  <Link to={ROUTES.LOGIN} className="text-blue-medium border p-1 rounded hover:bg-blue-medium hover:text-white delay-75 ease-out duration-100">
+                    Đăng nhập 
+                  </Link>{" "}
+                  để xem tất cả gợi ý dành cho bạn.
+                </div>
+              </div>
+            )}
+          </div>
 
-                    <div className='bg-white w-full h-auto overflow-hidden relative '>
-                        {profiles === null ? <BarLoader css={override} loading={loadView} color='#0095f6'  /> : profiles?.map((profile) => (
-                            <ViewAllSuggestedFollow 
-                                    key={profile?.docId}
-                                    profileDocId={profile.docId}
-                                    username={profile?.username}
-                                    verification={profile.verification}
-                                    loggedInUserdocId ={docId}
-                                    profileId={profile.userId}
-                                    userId ={userId}
-                                    avatarSignUp = {profile.avatarSignUp}
-                            />
-                        ))}
-                    </div>
-                    
-            
-               
-            </div>
+          <div className="bg-white w-full h-auto overflow-hidden relative ">
+            {profiles === null ? (
+              <BarLoader css={override} loading={loadView} color="#0095f6" />
+            ) : (
+              profiles?.map((profile) => (
+                <ViewAllSuggestedFollow
+                  key={profile?.docId}
+                  profileDocId={profile.docId}
+                  username={profile?.username}
+                  verification={profile.verification}
+                  loggedInUserdocId={docId}
+                  profileId={profile.userId}
+                  userId={userId}
+                  avatarSignUp={profile.avatarSignUp}
+                />
+              ))
+            )}
+          </div>
         </div>
-    )
+      </div>
+      <div className='md-res:mb-0 mb-14'>
+      <Footer />
+      </div>
+      <HeaderMobile />
+    </>
+  );
 }

@@ -31,12 +31,17 @@ export default function login() {
     const [displayPass, setDisplayPass] = useState(true);
     const [randomImage, setRandomImage] = useState(s1)
     const [loadingBtn, setLoadingBtn] = useState(false);
+    const [loginFb, setLoginFb] = useState(false)
 
     const handleDisplay = () => {
         setDisplayPass(!displayPass)
     }
 
+    const handleLoginFb = () => setTimeout(()=> setLoginFb(true),800)
      // alert show
+     useEffect(()=>{
+        setTimeout(()=> setLoginFb(false),2000)
+     },[loginFb])
     const alert = useAlert()
     // login
     const handleLogin = async (event) => {
@@ -151,9 +156,9 @@ export default function login() {
                     </div>
 
                     <div>
-                        <button type="button" className="font-semibold text-blue-bold text-sm flex items-center ">
-                            <span className="text-xl mr-1"><AiFillFacebook /></span>
-                            <span>Đăng nhập bằng Facebook</span>
+                        <button type="button" className="font-semibold text-blue-bold text-sm flex items-center" onClick={handleLoginFb}>
+                            {!loginFb && <span className="text-xl mr-1"><AiFillFacebook /></span>}
+                            {loginFb ? <span className='opacity-40'>hiện đang bảo trì...</span>: <span>Đăng nhập bằng Facebook</span>}
                         </button>
                     </div>
 

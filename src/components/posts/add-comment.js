@@ -44,7 +44,6 @@ export default function Addcomment({ docId, comments, setComments, commentInput 
 	const {
 		user: { displayName },
 	} = useContext(UserContext)
-
 	const handleSubmitComment = (event) => {
 		event.preventDefault()
 		setComments([{ displayName, comment }, ...comments])
@@ -64,23 +63,20 @@ export default function Addcomment({ docId, comments, setComments, commentInput 
 		const cursor = emojiPickerClick.current.selectionStart
 		emojiPickerClick.current.focus()
 		const text = comment.slice(0, cursor) + emojiObject.emoji + comment.slice(cursor);
-		setComment(text)
-		
+		setComment(text)		
 	}
-	useEffect(()=>{
-		
-	})
+	
 
 	return (
 		<>
 			<OutsideClickHandler
 				onOutsideClick={() => setDisplayE(false)}
 			>
-				<div role='presentation' className='h-2 relative -top-80 left-4'>
+				<div role='presentation' className='h-2 relative -top-80 left-1 minium:left-4 '>
 					{displayE ? <Picker  onEmojiClick = { onEmojiClick } disableSearchBar disableAutoFocus groupNames={objEmoji} pickerStyle={pickerStyle} /> : ''}
 				</div>
 			</OutsideClickHandler>
-			<div className='border-t border-gray-primary w-full focus:border-none' style={{}}>
+			<div className='sm-res:border-t sm-res:border-gray-primary w-full focus:border-none border-b border-gray-primary' style={{}}>
 				<form
 					className='flex justify-between pl-0 pr-4 '
 					method='POST'
@@ -111,7 +107,7 @@ export default function Addcomment({ docId, comments, setComments, commentInput 
 					<input
 						aria-label='add-comments'
 						autoComplete='off'
-						className='text-sm text-gray-base w-full mr-3 py-4 px-4 '
+						className='text-sm text-gray-base w-full mr-3 py-4 px-4 bg-gray-background sm-res:bg-white'
 						name='add-comment'
 						placeholder='Thêm bình luận...'
 						value={comment}

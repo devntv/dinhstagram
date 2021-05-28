@@ -33,7 +33,7 @@ export default function Comments({docId, comments: allComents, posted, commentIn
     
     return (
         <>
-            <div className='p-4 pt-0 mt-0 pb-4 m-2'>
+            <div className='p-4 pt-0 mt-0 pb-4 m-2 ml-1'>
                 {comments.length >= 3 && (
                     <div onClick={handleViewAllCmt} role="presentation">
 
@@ -50,26 +50,32 @@ export default function Comments({docId, comments: allComents, posted, commentIn
                  {allComments ? <div className='relative w-auto pl-4 bg-gray-grayLight h-auto rounded-sm animate-pulseText pb-1'>
                         {comments.map((item, index) => (
                             
-                                <p key={uuidv4() } className='flex items-center'>
-                                    <Link to={`/profile/${item.displayName}`}  >
-                                        <span className='mr-1 mt-1 font-semibold text-sm text-black-dowload flex items-center select-none'>{item.displayName} 
-                                            {item.displayName ==='NTVinh' || item.displayName ==='devntv'  ? <span className='ml-1 text-sm  text-blue-medium'><GoVerified /></span>:''}
-                                        </span>          
+                                <p key={uuidv4() } className='break-words leading-3'>
+                                    <Link to={`/profile/${item.displayName}`} className='select-none' >
+                                        <span className='mr-2 mt-1 font-semibold text-sm text-black-dowload select-none'>{item.displayName}</span>       
                                     </Link>
-                                    <span className='text-black-light text-sm mt-1 flex items-center ml-1'> {item.comment.includes('@') || item.comment.includes('#') ? <span className='font-bold flex items-center ml-1 text-blue-medium '>{item.comment} <FaSlackHash className='ml-2 animate-scaletext text-blue-medium  '/></span> : item.comment}</span>
+                                    {item.displayName ==='NTVinh' || item.displayName ==='devntv'  ? <span className='inline-block text-sm mt-1 mr-2 -ml-1 text-blue-medium select-none'><GoVerified /></span>:''}
+                                    <span className='text-black-light text-sm mt-1 items-center -ml-1'>
+                                    {item.comment.includes('@') || item.comment.includes('#') ?
+                                         <span className='font-bold flex items-center ml-1 text-blue-medium '>{item.comment} <FaSlackHash className='ml-2 animate-scaletext text-blue-medium  '/></span> : item.comment}</span>
                                 </p>
                             
                         ))}
                  </div> : ''}
                 {comments.slice(0,3).map((item) => (
-                    <p key={uuidv4()} className='flex items-center' >
-                        <Link to={`/profile/${item.displayName}`} className='flex items-center select-none' >
-                            <span className='mr-1 mt-1 font-semibold text-sm'>{item.displayName} </span>
-                            {item.displayName ==='NTVinh' || item.displayName ==='devntv' ? <span className=' text-sm mt-1 text-blue-medium select-none'><GoVerified /></span>:''}
+                    <div key={uuidv4()} className='break-words leading-3' >
+                        <Link to={`/profile/${item.displayName}`} className='select-none' >
+                            <span className='mr-1 mt-1 font-semibold text-sm select-none text-black-dowload'>{item.displayName} </span> 
+                                   
                         </Link>
+                        {item.displayName ==='NTVinh' || item.displayName ==='devntv' ? <span className='inline-block text-sm mt-1 mr-2 -ml-1 text-blue-medium select-none'><GoVerified /></span>:''}     
                         {/* <span className='text-black-light text-sm ml-1 mt-1'>{item.comment.includes('@') ? item.comment.replace(/(@{1}\w+\s{1})/ig, ReactHtmlParser('<b>$1</b>')) : item.comment}</span> */}
-                        <span className='text-black-light text-sm mt-1 flex items-center ml-1'> {item.comment.includes('@') || item.comment.includes('#')  ? <span className='font-bold flex items-center ml-1 text-blue-medium'>{item.comment} <FaSlackHash className='ml-2 animate-scaletext text-blue-medium'/></span> : item.comment}</span>
-                    </p>
+                        <span className='text-black-light text-sm mt-1 items-center -ml-1'> 
+                        {item.comment.includes('@') || item.comment.includes('#')  ? 
+                            <span className='font-bold flex items-center ml-1 text-blue-medium'>{item.comment} <FaSlackHash className='ml-2 animate-scaletext text-blue-medium'/></span>
+                             : item.comment}</span>
+                             
+                    </div>
                 ))}
                 <p 
                 onMouseDown={() => setTextTimeClick(!textTimeClick)} 

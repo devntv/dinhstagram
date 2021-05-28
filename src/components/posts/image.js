@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 export default function Image({src , caption}) {
    
     return (
-        <img className='object-cover select-none' src={src} alt={caption}/>
+        <img className='object-cover select-none h-auto' src={src} alt={caption}/>
         
     )
 }

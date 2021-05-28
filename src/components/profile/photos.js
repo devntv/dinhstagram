@@ -15,7 +15,7 @@ import UserContext from '../../context/user'
 import useUser from "../../hooks/user-use";
 import useAuthListener from "../../hooks/use-auth-listener";
 
-export default function Photos({ photos, profile:{ userId: profileUserId} }) {
+export default function Photos({ photos, profile:{ userId: profileUserId, followers,following}, photosCount, followerCount}) {
   const { user: loggedInUser } = React.useContext(UserContext)
   const { user } = useUser(loggedInUser?.uid);
   const loggedUser = useAuthListener();
@@ -96,7 +96,7 @@ export default function Photos({ photos, profile:{ userId: profileUserId} }) {
             </>
           ))}
 
-        <div className="text-sm text-gray-graysuggeseted h-28 flex items-center justify-center w-auto overflow-hidden relative mb-auto mt-8">
+        <div className="text-sm text-gray-graysuggeseted h-28 flex items-center justify-center w-auto overflow-hidden relative mb-auto mt-8 text-center break-words ml-1 mr-2">
           Made with 🐤 by NTVinh ● @2021 Vinhstagram all rights reserved.
         </div>
       </div>
@@ -105,7 +105,11 @@ export default function Photos({ photos, profile:{ userId: profileUserId} }) {
 }
 Photos.propTypes = {
   photos: PropTypes.array.isRequired,
+  photosCount: PropTypes.number.isRequired,
+  followerCount: PropTypes.number.isRequired,
   profile: PropTypes.shape({
     userId: PropTypes.string,
+    followers: PropTypes.array,
+		following: PropTypes.array,
   }).isRequired
 };

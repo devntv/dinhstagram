@@ -7,7 +7,7 @@ export default function BtnProfileSetting() {
 			<svg
 				stroke='currentColor'
 				viewBox='0 0 48 48'
-				className='h-6 flex items-center justify-center ml-4 mt-1 w-6 cursor-pointer text-black-primary'
+				className='h-6 sm-res:flex items-center justify-center ml-3 mt-1 w-6 cursor-pointer text-black-primary hidden'
 			>
 				<path
 					strokeLinecap='round'

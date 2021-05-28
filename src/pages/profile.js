@@ -7,9 +7,10 @@ import React, { useEffect, useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import HashLoader from 'react-spinners/HashLoader'
 import { css } from '@emotion/core'
-import { getUserByUsername } from '../services/firebase'
+import { getUserByUsername, getUserByUserId } from '../services/firebase'
 import * as ROUTES from '../contants/routes'
 import Header from '../components/header'
+import HeaderMobile from '../components/responsivemobile/header'
 import UserProfile from '../components/profile'
 
 const override = css`
@@ -35,6 +36,7 @@ export default function Profile() {
 		async function checkUserExists() {
 			setLoadPhotosUser(true)
 			const [user] = await getUserByUsername(username)
+			console.log(user)
 			if (user?.userId) {
 				setUser(user)
 				// setUserExists(true)
@@ -65,6 +67,7 @@ export default function Profile() {
 			<div className='mx-auto mt-20 max-w-screen-lg'>
 				<UserProfile user={user} />
 			</div>
+			<HeaderMobile />
 		</div>
 	) : null
 }

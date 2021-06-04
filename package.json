@@ -57,7 +57,8 @@
     "watch:css": "postcss src/styles/tailwind.css -o src/styles/app.css --watch",
     "react-scripts:start": "react-scripts start",
     "start": "run-p watch:css react-scripts:start",
-    "build": "run-s build:css react-scripts:build",
+    "build": "react-scripts build",
+   
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "eslint-check": "eslint --print-config src/App.js | eslint-config-prettier-check"

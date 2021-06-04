@@ -19,7 +19,8 @@ export default function Photos({ photos, profile:{ userId: profileUserId, follow
   const { user: loggedInUser } = React.useContext(UserContext)
   const { user } = useUser(loggedInUser?.uid);
   const loggedUser = useAuthListener();
-  const { uid } = loggedUser.user;
+  console.log(loggedUser);
+  const { uid } = loggedUser?.user;
   const isUserLogged = profileUserId === uid;
   return (
     <>
@@ -28,7 +29,7 @@ export default function Photos({ photos, profile:{ userId: profileUserId, follow
         <div
           className={`${
             photos.length > 0
-              ? "grid grid-cols-3 gap-7 mt-4 w-auto"
+              ? "grid grid-cols-3 h-full mt-2 w-auto object-cover bg-center"
               : "flex items-center justify-center"
           }`}
         >
@@ -38,14 +39,14 @@ export default function Photos({ photos, profile:{ userId: profileUserId, follow
             </>
           ) : photos.length > 0 ? (
             photos.map((photo) => (
-              <div key={photo.docId} className="relative group object-cover">
+              <div key={photo.docId} className="relative group object-cover mx-1 my-1">
                 <img
                   src={photo.imageSrc}
                   alt={photo.caption}
-                  className="h-80 w-auto object-cover bg-fixed rounded overflow-hidden bg-center bg-contain"
+                  className=" h-36 w-full object-cover bg-fixed rounded-lg overflow-hidden bg-center bg-contain sm-res:h-72"
                 />
-                <div className="absolute hidden bottom-0 left-0 bg-gray-200 z-10 w-full justify-center items-center h-full bg-black-faded group-hover:flex ">
-                  <p className="flex items-center text-white font-bold mr-8">
+                <div className="absolute bottom-0 left-0 bg-gray-200 z-10 w-full justify-center items-center h-full rounded-lg bg-black-faded hidden group-hover:flex">
+                  <p className="flex items-center text-white font-bold minium2:mr-2 sm-res:mr-6 md-res2:mr-10">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="mr-1 w-8"

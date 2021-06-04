@@ -51,7 +51,7 @@ export default function Header({
     }, 2000);
   }, [addBio]);
 
-  const { uid } = loggedUser.user;
+  const { uid } = loggedUser?.user;
   const [openModal, setOpenModal] = useState(false);
   const [isFollowingProfile, setIsFollowingProfile] = useState(false);
   // check manager profile setting
@@ -126,7 +126,7 @@ export default function Header({
             ) : (
               ""
             )}
-            {isUserLogged ? (
+            {/* {isUserLogged ? (
               <div className="flex items-center justify-center flex-wrap ">
                 <button
                   type="button"
@@ -138,7 +138,7 @@ export default function Header({
               </div>
             ) : (
               ""
-            )}
+            )} */}
 
             {activeBtnFollowProfile && (
               <>
@@ -253,8 +253,8 @@ export default function Header({
           />
         )}
       </div>
-      {isUserLogged && (
-        <div className="flex flex-col mt-8 -mb-4 items-center justify-center xs-res2:flex-row xs-res2:mt-8 md-res:mb-0 md-res2:mt-0 md-res2:ml-60 lg-res:ml-48">
+      {isUserLogged && (<>
+        <div className="flex flex-col mt-8 -mb-4 items-center justify-center xs-res2:flex-row xs-res2:mt-8 md-res:mb-0 md-res2:mt-0 md-res2:ml-44 lg-res:ml-44">
           <button
             onClick={handleBtnAddBio}
             type="button"
@@ -267,7 +267,7 @@ export default function Header({
             ) : (
               <>
                 <RiAddFill className="text-base font-bold sm-res:text-xl" />{" "}
-                Thêm tiểu sử{" "}
+                {!bioProfile ? 'Thêm tiểu sử':'Chỉnh sửa tiểu sử'}
               </>
             )}
           </button>
@@ -278,13 +278,15 @@ export default function Header({
             Một số tinh năng đang được phát triển
           </button>
           <a
-            href="https://github.com/devntv/dinhstagram-react"
+            href="https://github.com/devntv/dinhstagram-react/graphs/contributors" target='_blank' rel="noreferrer"
             className="text-xs text-white bg-red-primary ml-2 border p-2 mt-2 rounded flex items-center"
           >
             trở thành Contributors{" "}
             <BsArrowRight className="text-lg font-bold ml-1" />{" "}
           </a>
         </div>
+        {/* {addBio && <input  type="text" placeholder="Nhập bio" className='border'/>} */}
+       </>
       )}
 
       <div className="mt-10 flex text-sm items-center w-auto justify-center -mb-8 border-t border-gray-primary relative  mx-0 sm-res:hidden">

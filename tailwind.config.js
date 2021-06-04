@@ -1,7 +1,9 @@
 /* eslint-disable prettier/prettier */
 // tailwind.config.js
 module.exports = {
-	purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
+	purge: {
+		content: ['./src/**/*.js', './src/**/**/*.js']
+	  },
 	future: {
 		removeDeprecatedGapUtilities: true,
 	},
@@ -11,7 +13,6 @@ module.exports = {
 			black: theme('colors.black.faded'),
 			
 		}),
-		
 		colors: {
 			white: '#fff',
 			blue: {
@@ -202,9 +203,8 @@ module.exports = {
 		},
 	},
 	variants: {
-		extends:{
-			display: ['group-hover']
+		extend:{
+			display: ['group-hover'],
 		},	
 	},
-	plugins: [],
 }

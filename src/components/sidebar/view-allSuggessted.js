@@ -98,9 +98,6 @@ export default function ViewAllSuggested() {
           </div>
         </div>
       </div>
-      <div className='md-res:mb-0 mb-14'>
-      <Footer />
-      </div>
       <HeaderMobile />
     </>
   );

@@ -36,7 +36,7 @@ export default function Profile() {
 		async function checkUserExists() {
 			setLoadPhotosUser(true)
 			const [user] = await getUserByUsername(username)
-			console.log(user)
+
 			if (user?.userId) {
 				setUser(user)
 				// setUserExists(true)
@@ -69,5 +69,7 @@ export default function Profile() {
 			</div>
 			<HeaderMobile />
 		</div>
-	) : null
+	) : (
+		<div>Hãy đăng nhập</div>
+	)
 }

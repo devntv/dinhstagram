@@ -26,7 +26,6 @@ export default function Dashboard({ user: loggedInuser }) {
 					<Timeline />
 					<div>
 						<Sidebar />
-						<HeaderMobile />
 					</div>
 				</div>
 				{/* reponsive Mobile */}

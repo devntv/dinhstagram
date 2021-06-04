@@ -24,7 +24,7 @@ export async function getUserByUsername(username) {
 		...item.data(),
 		docId: item.id
 	})) 
-	console.log(user);
+	
 	return user.length > 0 ? user : []
 }
 

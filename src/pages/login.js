@@ -138,7 +138,6 @@ export default function login() {
                                 className="relative font-semibold bottom-10 right-2 text-sm cursor-pointer focus:outline-none"
                                 onClick={handleDisplay}
                             > {password === '' ? '' : 'Hiển thị' && displayPass ? 'Hiển thị' : 'Ẩn'}
-
                             </button>
                         </div>
 
